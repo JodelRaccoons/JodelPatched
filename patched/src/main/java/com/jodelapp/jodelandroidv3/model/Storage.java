@@ -1,23 +1,25 @@
 package com.jodelapp.jodelandroidv3.model;
 
+import android.util.Log;
+
+import com.jodelapp.jodelandroidv3.jp.JPStorage;
+
 import java.util.Arrays;
 import java.util.List;
 
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
-import lanchon.dexpatcher.annotation.DexIgnore;
+import lanchon.dexpatcher.annotation.DexWrap;
 
 @DexEdit
 public class Storage {
 
-    @DexIgnore
-    public Storage() {
-    }
-
     @DexAdd
+    JPStorage jpStorage;
+
+    @DexWrap
     public boolean isFeature(String feature) {
-        if (feature == null || feature.isEmpty())
-            return false;
+        if(feature == null || feature.isEmpty()) return false;
 
         List<String> features = Arrays.asList(
                 "text_search"
@@ -40,12 +42,17 @@ public class Storage {
                 , "mentioning_repliers"
                 , "create_channel"
         );
-        boolean isActive = source_isFeature(feature);
-        return isActive || features.contains(feature);
-    }
 
-    @DexEdit(target = "isFeature")
-    public boolean source_isFeature(String s) {
-        return false;
+        boolean isDefaultActive = isFeature(feature);
+
+        if(isDefaultActive) return true;
+
+        if(jpStorage == null) jpStorage = new JPStorage();
+
+        jpStorage.registerFeature(feature);
+
+        Log.i("Jodel", "default disabled feature: " + String.valueOf(feature));
+
+        return jpStorage.isActive(feature);
     }
 }

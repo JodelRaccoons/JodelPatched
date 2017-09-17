@@ -10,10 +10,6 @@ import lanchon.dexpatcher.annotation.DexReplace;
 @DexEdit
 public class HmacInterceptor implements IHmacInterceptor {
 
-    @DexIgnore
-    public HmacInterceptor() {
-    }
-
     @DexReplace
     private static String calculateSaltHash(Context context) {
         return "a4a8d4d7b09736a0f65596a868cc6fd620920fb0";

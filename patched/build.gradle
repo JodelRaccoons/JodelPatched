@@ -80,8 +80,8 @@ dexpatcherConfig {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
         // The 'package' attribute in the patched app manifest must be different from the
@@ -91,10 +91,10 @@ android {
 
         // You must set these fields to match or be compatible with the corresponding data
         // of the source app. (Data is displayed when the source apk library is built.)
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1002701
-        versionName '4.56.1'
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 1003001
+        versionName '4.59.1'
         setProperty("archivesBaseName", "JodelPatched-$versionName")
     }
 
@@ -137,6 +137,7 @@ dependencies {
     //        // app using DexPatcher package annotations.
     //        exclude module: 'support-v4'
     //    }
+    debugCompile 'com.facebook.stetho:stetho:1.5.0'
 }
 repositories {
     mavenCentral()

@@ -1,30 +1,28 @@
 package com.jodelapp.jodelandroidv3;
 
-import com.squareup.otto.Bus;
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
-import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
 @DexEdit(staticConstructorAction = DexAction.ADD)
-public class AppModule {
-
-    @DexIgnore
-    public AppModule() {
-    }
+public class JodelApp extends Application {
 
     @DexAdd
-    public static Bus staticBus;
+    public static Context staticContext;
 
     static {
     }
 
+    @SuppressLint("MissingSuperCall")
     @DexWrap
-    private Bus createBus() {
-        Bus bus = createBus();
-        staticBus = bus;
-        return bus;
+    public void onCreate() {
+        onCreate();
+        staticContext = this;
     }
+
 }

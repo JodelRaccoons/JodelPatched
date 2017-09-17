@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="gallery_button" type="id">false</item>
+    <item name="toggle_scale_button" type="id">false</item>
+    <item name="jp_settings_beta_features_button" type="id">false</item>
+</resources>
