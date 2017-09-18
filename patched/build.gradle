@@ -93,8 +93,8 @@ android {
         // of the source app. (Data is displayed when the source apk library is built.)
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 1003001
-        versionName '4.59.1'
+        versionCode 1003201
+        versionName '4.61.1'
         setProperty("archivesBaseName", "JodelPatched-$versionName")
     }
 
