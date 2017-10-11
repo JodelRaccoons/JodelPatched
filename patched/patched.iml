@@ -96,11 +96,11 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="dexpatcher-annotation-1.3.1" level="project" />
-    <orderEntry type="library" name="classes" level="project" />
-    <orderEntry type="library" name="jsr305-2.0.1" level="project" />
-    <orderEntry type="library" name="commons-cli-1.2" level="project" />
-    <orderEntry type="library" name="stetho-1.5.0" level="project" />
-    <orderEntry type="module" module-name="source" />
+    <orderEntry type="library" exported="" name="dexpatcher-annotation-1.4.0" level="project" />
+    <orderEntry type="library" exported="" name="classes" level="project" />
+    <orderEntry type="library" exported="" name="jsr305-2.0.1" level="project" />
+    <orderEntry type="library" exported="" name="commons-cli-1.2" level="project" />
+    <orderEntry type="library" exported="" name="stetho-1.5.0" level="project" />
+    <orderEntry type="module" module-name="source" exported="" />
   </component>
 </module>

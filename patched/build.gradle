@@ -93,8 +93,8 @@ android {
         // of the source app. (Data is displayed when the source apk library is built.)
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 1003201
-        versionName '4.61.1'
+        versionCode 1003502
+        versionName '4.64.2'
         setProperty("archivesBaseName", "JodelPatched-$versionName")
     }
 
@@ -137,7 +137,9 @@ dependencies {
     //        // app using DexPatcher package annotations.
     //        exclude module: 'support-v4'
     //    }
-    debugCompile 'com.facebook.stetho:stetho:1.5.0'
+    debugCompile ('com.facebook.stetho:stetho:1.5.0') {
+        exclude module: 'javax.annotation'
+    }
 }
 repositories {
     mavenCentral()
