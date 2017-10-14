@@ -80,7 +80,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dexpatcher" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.facebook.stetho/stetho/1.5.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
@@ -98,9 +97,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="dexpatcher-annotation-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="classes" level="project" />
-    <orderEntry type="library" exported="" name="jsr305-2.0.1" level="project" />
-    <orderEntry type="library" exported="" name="commons-cli-1.2" level="project" />
-    <orderEntry type="library" exported="" name="stetho-1.5.0" level="project" />
     <orderEntry type="module" module-name="source" exported="" />
   </component>
 </module>
