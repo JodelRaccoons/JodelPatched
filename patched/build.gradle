@@ -114,7 +114,9 @@ android {
         }
     }
 }
-
+configurations {
+    custom
+}
 tasks.withType(Lint) {
     enabled = false
 }
@@ -137,9 +139,9 @@ dependencies {
     //        // app using DexPatcher package annotations.
     //        exclude module: 'support-v4'
     //    }
-    //debugCompile ('com.facebook.stetho:stetho:1.5.0') {
-    //    exclude module: 'javax.annotation'
-    //}
+    debugCompile('com.facebook.stetho:stetho:1.5.0') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
 }
 repositories {
     mavenCentral()
