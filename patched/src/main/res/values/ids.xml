@@ -3,4 +3,5 @@
     <item name="gallery_button" type="id">false</item>
     <item name="toggle_scale_button" type="id">false</item>
     <item name="jp_settings_beta_features_button" type="id">false</item>
+    <item name="jp_settings_toggle_spoof" type="id">false</item>
 </resources>

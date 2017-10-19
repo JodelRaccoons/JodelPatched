@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
@@ -85,6 +86,9 @@ class MyListener implements DialogInterface.OnMultiChoiceClickListener, DialogIn
         dialog = builder.create();
 
         view.findViewById(R.id.jp_settings_beta_features_button).setOnClickListener(this);
+        View spoofButton = view.findViewById(R.id.jp_settings_toggle_spoof);
+        spoofButton.setOnClickListener(this);
+        ((Button) spoofButton).setText(jpStorage.isSpoofLocation() ? "ON" : "OFF");
     }
 
     // setMultiChoiceItems
@@ -102,6 +106,12 @@ class MyListener implements DialogInterface.OnMultiChoiceClickListener, DialogIn
     // Open dialog
     @Override
     public void onClick(View v) {
-        dialog.show();
+        if (v.getId() == R.id.jp_settings_beta_features_button)
+            dialog.show();
+        if (v.getId() == R.id.jp_settings_toggle_spoof) {
+            boolean old = jpStorage.isSpoofLocation();
+            jpStorage.isSpoofLocation(!old);
+            ((Button) v).setText(jpStorage.isSpoofLocation() ? "ON" : "OFF");
+        }
     }
 }
