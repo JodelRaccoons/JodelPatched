@@ -25,36 +25,29 @@ import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
-@DexAdd
-class ClickListener implements View.OnLongClickListener {
-    MainActivity activity;
+/*
+* Stuff done so far: Removed long click listener from the hometown button. Moved the Listener into MyMenuViewHolderPresenter.
+* Using this class for the staticActivity and the callback from the PlacePicker.
+* */
 
-    ClickListener(MainActivity activity) {
-        this.activity = activity;
-    }
+@DexEdit(onlyEditMembers = true)
+public class MainActivity extends JodelActivity {
 
-    @Override
-    public boolean onLongClick(View v) {
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setClassName("io.github.krokofant.placepickerproxy",
-                "io.github.krokofant.placepickerproxy.MainActivity");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, "your title text");
-        activity.startActivityForResult(sharingIntent, 108);
-        return true;
-    }
-}
-
-@DexEdit
-public class MainActivity extends JodelActivity implements LoaderCallbacks<Void>, MainActivityContract.View {
+    @SuppressLint("StaticFieldLeak")
+    @DexAdd
+    public static Activity staticActivity;
 
     @SuppressLint("MissingSuperCall")
     @DexWrap
     protected void onCreate(Bundle bundle) {
         onCreate(bundle);
-        View feedTab = findViewById(R.id.feed_tab);
-        feedTab.setOnLongClickListener(new ClickListener(this));
+        staticActivity = this;
     }
 
+    /*
+    * OnActivityResult from the LocationPicker, implemented in
+    * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
+    * */
     @DexWrap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 108) {
@@ -65,105 +58,5 @@ public class MainActivity extends JodelActivity implements LoaderCallbacks<Void>
             storage.setSpoofLocation(latlng[0], latlng[1]);
         } else
             onActivityResult(requestCode, resultCode, data);
-    }
-
-    @DexIgnore
-    public Loader<Void> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @DexIgnore
-    public void onLoadFinished(Loader<Void> loader, Void data) {
-
-    }
-
-    @DexIgnore
-    public void onLoaderReset(Loader<Void> loader) {
-
-    }
-
-    @DexIgnore
-    public void closeUserProfilingDialog() {
-
-    }
-
-    @DexIgnore
-    public void enableUserProfilingHandler() {
-
-    }
-
-    @DexIgnore
-    public void getDeeplinkInstallReferrerAndRegister() {
-
-    }
-
-    @DexIgnore
-    public void hideChannelsRedDot() {
-
-    }
-
-    @DexIgnore
-    public void hideOrangeDotNearKarma() {
-
-    }
-
-    @DexIgnore
-    public void hideRedDotNearKarma() {
-
-    }
-
-    @DexIgnore
-    public void popupLocationPermissionDialog() {
-
-    }
-
-    @DexIgnore
-    public void showAppLocationSettingDialog(Status status) {
-
-    }
-
-    @DexIgnore
-    public void showChannelsRedDot() {
-
-    }
-
-    @DexIgnore
-    public void showErrorTypeOnTopSnackbar(ConnectionErrorMessage.ErrorType errorType) {
-
-    }
-
-    @DexIgnore
-    public void showInAppNotification(PushNotification pushNotification) {
-
-    }
-
-    @DexIgnore
-    public void showOrangeDotNearKarma() {
-
-    }
-
-    @DexIgnore
-    public void showPhoneVerification() {
-
-    }
-
-    @DexIgnore
-    public void showRedDotNearKarma() {
-
-    }
-
-    @DexIgnore
-    public void showUserProfiling() {
-
-    }
-
-    @DexIgnore
-    public void showUserProfilingDialog() {
-
-    }
-
-    @DexIgnore
-    public void updateKarma(String s) {
-
     }
 }

@@ -4,6 +4,5 @@ import lanchon.dexpatcher.annotation.DexIgnore;
 
 @DexIgnore
 public class PostCreationFragment {
-
-
+ /*Removed unnecessary stuff*/
 }

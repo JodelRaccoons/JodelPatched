@@ -58,7 +58,7 @@ dexpatcherConfig {
         // The package name of the used DexPatcher annotations. Useful to handle rogue apps
         // that want to disallow patching by intentionally clashing with standard DexPatcher
         // annotation names. Defaults to 'lanchon.dexpatcher.annotation'.
-        //annotationPackage = 'lanchon.dexpatcher.annotation'
+        annotationPackage = 'lanchon.dexpatcher.annotation'
 
         // Enable compatibility with the deprecated DexTag.
         //compatDexTag = true
