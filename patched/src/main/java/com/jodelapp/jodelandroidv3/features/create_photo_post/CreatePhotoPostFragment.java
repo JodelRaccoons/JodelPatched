@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.jodelapp.jodelandroidv3.features.create_photo_post.listeners.CameraShutterListener;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
+import com.tellm.android.app.mod.R;
 
-import hack.getid.R;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;

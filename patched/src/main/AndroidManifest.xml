@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="hack.getid">
+    package="com.tellm.android.app.mod">
 
     <!--Source and patched manifests are merged according to standard build rules:
         http://tools.android.com/tech-docs/new-build-system/user-guide/manifest-merger -->

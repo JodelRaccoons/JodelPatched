@@ -1,5 +1,7 @@
 package com.jodelapp.jodelandroidv3.features.mymenu;
 
+import android.widget.CompoundButton;
+
 import com.jodelapp.jodelandroidv3.view.MyMenuItem;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
  * *Added entries in the right side menu of Jodel. Clicks are handled in MyMenuViewHolderPresenter
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "InfiniteRecursion"})
 @DexEdit(onlyEditMembers = true, defaultAction = DexAction.IGNORE)
 public class MyMenuPresenter {
 
@@ -20,9 +22,7 @@ public class MyMenuPresenter {
     @DexWrap
     private final List<MyMenuItem> generateMenuItem() {
         List<MyMenuItem> myMenuItems = generateMenuItem();
-        myMenuItems.add(new MyMenuItem("jp_location", "Location"));
-        myMenuItems.add(new MyMenuItem("jp_enable_features", "Beta Features"));
+        myMenuItems.add(new MyMenuItem("jp_location", "Settings"));
         return myMenuItems;
     }
-
 }

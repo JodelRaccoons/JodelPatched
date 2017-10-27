@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="jp_location_spoof">Location Spoofing</string>
+    <string name="jp_features">Features</string>
+    <string name="jp_features_desc">You can enable some untested beta features of Jodel. Some are very instable, or disabled serversided. You\'ll find yout by trying!</string>
+</resources>

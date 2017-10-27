@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
+import com.tellm.android.app.mod.R;
 
-import hack.getid.R;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
