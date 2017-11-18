@@ -1,0 +1,140 @@
+package com.jodelapp.jodelandroidv3.jp;
+
+import android.content.Context;
+import android.content.res.XmlResourceParser;
+import android.location.Location;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.TextView;
+
+import com.androidadvance.topsnackbar.TSnackbar;
+import com.jodelapp.jodelandroidv3.AppModule;
+import com.jodelapp.jodelandroidv3.data.googleservices.location.LocationUpdatesOnSubscribe$$Lambda$1;
+import com.jodelapp.jodelandroidv3.events.FeedUpdateEvent;
+import com.jodelapp.jodelandroidv3.events.HomeModeOffEvent;
+import com.jodelapp.jodelandroidv3.events.LocationUpdateEvent;
+import com.jodelapp.jodelandroidv3.view.MainActivity;
+import com.squareup.otto.Bus;
+import com.tellm.android.app.mod.R;
+
+import org.xmlpull.v1.XmlPullParser;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import lanchon.dexpatcher.annotation.DexAdd;
+
+@DexAdd
+public class JPUtils {
+
+    public static int getDiptoPx(Context context, int dip) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
+    }
+
+    /*
+    * Possible update sensitive method
+    * */
+    public static void addFragmentToContent(FragmentActivity mActivity, Fragment mFragment) {
+        mActivity.getSupportFragmentManager().aU().a(android.R.id.content, mFragment).g("").commit();
+    }
+
+    public static void updateJodelLocation() {
+        updateJodelLocation(getLocation());
+    }
+
+    private static void updateJodelLocation(Location mLocation) {
+        Bus mBus = AppModule.staticBus;
+        mBus.post(new LocationUpdateEvent(mLocation));
+        mBus.post(new HomeModeOffEvent());
+        mBus.post(new FeedUpdateEvent());
+    }
+
+    public static Location getLocation() {
+        JPStorage mStorage = new JPStorage();
+        boolean spoofed = mStorage.isSpoofLocation();
+
+        if (spoofed) {
+            Location mLocation = new Location("JP");
+            if (mStorage.getSpoofLocation()[0] == 0 && mStorage.getSpoofLocation()[1] == 0)
+                return JPLocationManager.getLocation();
+            mLocation.setLatitude(mStorage.getSpoofLocation()[0]);
+            mLocation.setLongitude(mStorage.getSpoofLocation()[1]);
+            return mLocation;
+        } else {
+            return JPLocationManager.getLocation();
+        }
+    }
+
+    public static boolean isValidLatLng(double lat, double lng){
+        if(lat < -90 || lat > 90)
+        {
+            return false;
+        }
+        else if(lng < -180 || lng > 180)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean isValidDouble(String mDouble) {
+        try {
+            Double.parseDouble(mDouble);
+            Location.convert(mDouble);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static Map<String,String> getHashMapResource(Context c, int hashMapResId) {
+        Map<String,String> map = null;
+        XmlResourceParser parser = c.getResources().getXml(hashMapResId);
+
+        String key = null, value = null;
+
+        try {
+            int eventType = parser.getEventType();
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_DOCUMENT) {
+                    Log.d("utils","Start document");
+                } else if (eventType == XmlPullParser.START_TAG) {
+                    if (parser.getName().equals("map")) {
+                        boolean isLinked = parser.getAttributeBooleanValue(null, "linked", false);
+
+                        map = isLinked ? new LinkedHashMap<String, String>() : new HashMap<String, String>();
+                    } else if (parser.getName().equals("entry")) {
+                        key = parser.getAttributeValue(null, "key");
+
+                        if (null == key) {
+                            parser.close();
+                            return null;
+                        }
+                    }
+                } else if (eventType == XmlPullParser.END_TAG) {
+                    if (parser.getName().equals("entry")) {
+                        map.put(key, value);
+                        key = null;
+                        value = null;
+                    }
+                } else if (eventType == XmlPullParser.TEXT) {
+                    if (null != key) {
+                        value = parser.getText();
+                    }
+                }
+                eventType = parser.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return map;
+    }
+}

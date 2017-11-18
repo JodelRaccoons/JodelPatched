@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map linked="true">
+    <entry key="bestof_sorting">Displays the hottest or most commented Posts in a given time frame.</entry>
+    <entry key="channel_mainfeed">Displays a Tag next to Posts from your Fresh Section.</entry>
+    <entry key="channels">Allows you to access the Channels Section.</entry>
+    <entry key="create_channel">Allows you to start a new channel.</entry>
+    <entry key="hometown_location">Allows you to set a location which you will always be able to return to.</entry>
+    <entry key="hometown_setting_off">no description in here, sorry</entry> <!--TODO-->
+    <entry key="instabug">no description in here, sorry</entry> <!--TODO-->
+    <entry key="instanceid_verification_signup">no description in here, sorry</entry> <!--TODO-->
+    <entry key="international_feed">no description in here, sorry</entry> <!--TODO-->
+    <entry key="invite">Displays a button to invite your friends to get Jodel.</entry>
+    <entry key="jodel_newsfeed">Enables a Tab listing special Jodels</entry>
+    <entry key="location_tags">no description in here, sorry</entry> <!--TODO-->
+    <entry key="loudest_day">Loudest Day</entry>
+    <entry key="new_post_ux">New Post UX</entry>
+    <entry key="phone_verification">Enable Phone verification</entry>
+    <entry key="text_search">Text Search</entry>
+    <entry key="user_profiling">User Profiling</entry>
+    <entry key="user_profilig3">User Profiling 3</entry>
+</map>

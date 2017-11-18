@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map linked="true">
+    <entry key="bestof_sorting">Enable Best-Of Tab</entry>
+    <entry key="channel_mainfeed">Enable Mainfeed Tagging</entry>
+    <entry key="channels">Enable Channels</entry>
+    <entry key="create_channel">Enable Channel Creation</entry>
+    <entry key="hometown_location">Enable Hometown Location</entry>
+    <entry key="hometown_setting_off">Hometown Setting off</entry> <!--TODO-->
+    <entry key="instabug">Instabug</entry> <!--TODO-->
+    <entry key="instanceid_verification_signup">Instanceid Verification Signup</entry> <!--TODO-->
+    <entry key="international_feed">Enable International Feed</entry> <!--TODO-->
+    <entry key="invite">Enable Invite Button</entry>
+    <entry key="jodel_newsfeed">Enable Jodels Newsfeed</entry>
+    <entry key="location_tags">Location Tags</entry> <!--TODO-->
+    <entry key="loudest_day">Loudest Day</entry>
+    <entry key="new_post_ux">New Post UX</entry>
+    <entry key="phone_verification">Enable Phone verification</entry>
+    <entry key="text_search">Text Search</entry>
+    <entry key="user_profiling">User Profiling</entry>
+    <entry key="user_profilig3">User Profiling 3</entry>
+</map>

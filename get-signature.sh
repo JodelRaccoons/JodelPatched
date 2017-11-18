@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+mkdir -p patched/src/main/res/raw && echo -n $(keytool -list -printcert -jarfile $(ls -1 source/apk/*.apk | head -1) | grep "SHA1: " | cut -d " " -f 3 | sed -e 's/://g' | awk '{print tolower($0)}') > patched/src/main/res/raw/sha$($ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -gr | head -1)/aapt dump badging $(ls -1 source/apk/*.apk | head -1) | grep -o "versionCode='\d*" | sed -e 's/[^0-9]*//').key
