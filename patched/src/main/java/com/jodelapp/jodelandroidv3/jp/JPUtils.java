@@ -39,7 +39,7 @@ public class JPUtils {
     * Possible update sensitive method
     * */
     public static void addFragmentToContent(FragmentActivity mActivity, Fragment mFragment) {
-        mActivity.getSupportFragmentManager().aU().a(android.R.id.content, mFragment).g("").commit();
+        mActivity.getSupportFragmentManager().cf().a(android.R.id.content, mFragment).h("").commit();
     }
 
     public static void updateJodelLocation() {
