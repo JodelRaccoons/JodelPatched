@@ -5,6 +5,7 @@ import android.content.res.XmlResourceParser;
 import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.jodelapp.jodelandroidv3.AppModule;
+import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.data.googleservices.location.LocationUpdatesOnSubscribe$$Lambda$1;
 import com.jodelapp.jodelandroidv3.events.FeedUpdateEvent;
 import com.jodelapp.jodelandroidv3.events.HomeModeOffEvent;
@@ -22,6 +24,7 @@ import com.tellm.android.app.mod.R;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -136,5 +139,21 @@ public class JPUtils {
         }
 
         return map;
+    }
+
+    public static int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = JodelApp.staticContext.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static class Colors {
+        public static ArrayList<String> Colors = new ArrayList<String>() {{
+            add("#FFFF9908"); //Orange
+            add("#FFFFBA00"); //Yellow
+            add("#FFDD5F5F"); //Red
+            add("#FF06A3CB"); //Blue
+            add("#FF8ABDB0"); //Bluegrayish
+            add("#FF9EC41C"); //Green
+        }};
     }
 }

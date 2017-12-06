@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JodelPatched.iml" filepath="$PROJECT_DIR$/JodelPatched.iml" />
       <module fileurl="file://$PROJECT_DIR$/patched/patched.iml" filepath="$PROJECT_DIR$/patched/patched.iml" />
+      <module fileurl="file://$PROJECT_DIR$/patched/patched.iml" filepath="$PROJECT_DIR$/patched/patched.iml" />
       <module fileurl="file://$PROJECT_DIR$/source/source.iml" filepath="$PROJECT_DIR$/source/source.iml" />
     </modules>
   </component>

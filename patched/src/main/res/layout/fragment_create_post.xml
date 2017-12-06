@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/toolbar_create_text_post" />
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:gravity="top" android:layout_gravity="top" android:orientation="vertical" android:id="@id/create_post_layout" android:background="@color/post_orange" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <ScrollView android:layout_gravity="top" android:id="@id/scrollContainer" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_weight="0.0">
+                <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <com.jodelapp.jodelandroidv3.view.PostEditText android:theme="@style/AppEditTextStyle" android:textAppearance="?android:textAppearanceLarge" android:textSize="21.0sp" android:textColor="@color/white" android:gravity="top" android:id="@id/create_post_edit_text" android:scrollbars="vertical" android:longClickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:hint="" android:maxLines="@integer/max_post_lines_edit_show" android:maxLength="@integer/max_post_length" android:lineSpacingExtra="2.0dip" android:inputType="textAutoComplete|textAutoCorrect|textCapSentences|textImeMultiLine|textMultiLine" android:imeOptions="actionSend|flagNoEnterAction" android:textCursorDrawable="@drawable/white_editor_cursor" app:pix_font="fonts/gotham_book.otf" />
+                    <com.pixplicity.fontview.FontEditText android:theme="@style/AppEditTextStyle" android:textAppearance="?android:textAppearanceLarge" android:textSize="21.0sp" android:textColor="@color/white" android:textColorHint="@color/whiteSemiTransparent" android:gravity="top" android:id="@id/hashtag_prompt_edit_text" android:visibility="gone" android:longClickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:hint="@string/hashtag_prompt" android:layout_below="@id/create_post_edit_text" android:inputType="textImeMultiLine|textMultiLine" android:imeOptions="actionSend|flagNoEnterAction" android:textCursorDrawable="@drawable/white_editor_cursor" app:pix_font="fonts/gotham_book.otf" />
+                </RelativeLayout>
+            </ScrollView>
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView android:id="@+id/colorPickerButton" android:clickable="true" android:layout_width="60dp" android:layout_height="60dp" android:layout_marginTop="17dip" android:src="@drawable/ic_color_palette" android:scaleType="fitCenter"/>
+                    <ImageView android:id="@id/cameraButton" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20.0dip" android:src="@drawable/camera_button" android:scaleType="fitCenter" />
+                </LinearLayout>
+                <ProgressBar android:id="@id/progress_bar_create_post" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </LinearLayout>
+        <FrameLayout android:id="@id/view_bottom_tag_panel" android:background="@color/blackTransparent" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+            <FrameLayout android:paddingLeft="8.0dip" android:paddingTop="7.0dip" android:paddingRight="8.0dip" android:paddingBottom="7.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="38.0dip">
+                <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/view_selected_location_tag" android:background="@drawable/rounded_location_tag_background" android:paddingLeft="7.0dip" android:paddingTop="8.0dip" android:paddingRight="7.0dip" android:paddingBottom="8.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <ImageView android:layout_gravity="center_vertical" android:id="@id/image_view_location_selected" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginRight="4.0dip" android:src="@drawable/location_transparent" />
+                    <com.pixplicity.fontview.FontTextView android:textSize="12.0sp" android:textColor="@color/black" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/text_view_location_tag_selected" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="4.0dip" android:maxWidth="92.0dip" android:lines="1" android:scrollHorizontally="false" app:pix_font="fonts/gotham_book.otf" />
+                    <ImageView android:layout_gravity="center_vertical" android:id="@id/img_location_delete" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginRight="4.0dip" android:src="@drawable/ic_close" />
+                </LinearLayout>
+            </FrameLayout>
+            <HorizontalScrollView android:id="@id/scroll_view_location_tags" android:paddingLeft="8.0dip" android:paddingTop="7.0dip" android:paddingRight="8.0dip" android:paddingBottom="7.0dip" android:visibility="gone" android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="38.0dip">
+                <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                    <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/v_location_tag1" android:background="@drawable/rounded_location_tag_background" android:paddingLeft="7.0dip" android:paddingTop="8.0dip" android:paddingRight="7.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip">
+                        <ImageView android:layout_gravity="center_vertical" android:id="@id/image_view_location_tag1" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginRight="4.0dip" android:src="@drawable/location_transparent" />
+                        <com.pixplicity.fontview.FontTextView android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center_vertical" android:id="@id/text_view_location_tag1" android:layout_width="wrap_content" android:layout_height="wrap_content" app:pix_font="fonts/gotham_book.otf" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/v_location_tag2" android:background="@drawable/rounded_location_tag_background" android:paddingLeft="7.0dip" android:paddingTop="8.0dip" android:paddingRight="7.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip">
+                        <ImageView android:layout_gravity="center_vertical" android:id="@id/image_view_location_tag2" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginRight="4.0dip" android:src="@drawable/location_transparent" />
+                        <com.pixplicity.fontview.FontTextView android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center_vertical" android:id="@id/text_view_location_tag2" android:layout_width="wrap_content" android:layout_height="wrap_content" app:pix_font="fonts/gotham_book.otf" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/v_location_tag3" android:background="@drawable/rounded_location_tag_background" android:paddingLeft="7.0dip" android:paddingTop="8.0dip" android:paddingRight="7.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dip">
+                        <ImageView android:layout_gravity="center_vertical" android:id="@id/image_view_location_tag3" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginRight="4.0dip" android:src="@drawable/location_transparent" />
+                        <com.pixplicity.fontview.FontTextView android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center_vertical" android:id="@id/text_view_location_tag3" android:layout_width="wrap_content" android:layout_height="wrap_content" app:pix_font="fonts/gotham_book.otf" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_gravity="center_vertical" android:orientation="horizontal" android:id="@id/v_location_tag_more" android:background="@drawable/rounded_location_tag_background" android:paddingLeft="7.0dip" android:paddingTop="8.0dip" android:paddingRight="7.0dip" android:paddingBottom="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                        <com.pixplicity.fontview.FontTextView android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center_vertical" android:id="@id/text_view_location_more" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/location_tags_more" app:pix_font="fonts/gotham_book.otf" />
+                        <ImageView android:layout_gravity="center_vertical" android:id="@id/image_view_location_more" android:layout_width="10.0dip" android:layout_height="12.0dip" android:layout_marginLeft="4.0dip" android:src="@drawable/ic_backwards" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </FrameLayout>
+    </RelativeLayout>
+</LinearLayout>
