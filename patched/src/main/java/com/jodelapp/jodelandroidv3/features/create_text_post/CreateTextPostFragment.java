@@ -2,7 +2,11 @@ package com.jodelapp.jodelandroidv3.features.create_text_post;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,9 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jodelapp.jodelandroidv3.JodelApp;
+import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
+import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 import com.tellm.android.app.mod.R;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
@@ -22,6 +31,7 @@ import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+import static android.app.Activity.RESULT_OK;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
@@ -34,6 +44,14 @@ public class CreateTextPostFragment extends JodelFragment{
     @DexIgnore
     CreateTextPostContract.Presenter presenter;
 
+    @DexAdd
+    public void setPostCreationFragment(PostCreationFragment mPostCreationFragment) {
+        this.mPostCreationFragment = mPostCreationFragment;
+    }
+
+    @DexAdd
+    PostCreationFragment mPostCreationFragment;
+
     @DexIgnore
     public CreateTextPostFragment(String s) {
         super(s);
@@ -44,6 +62,9 @@ public class CreateTextPostFragment extends JodelFragment{
         View rootView = onCreateView(layoutInflater, viewGroup, bundle);
         ImageView mColorPickerButton = (ImageView) rootView.findViewById(R.id.colorPickerButton);
         mColorPickerButton.setOnClickListener(new OnColorPickerClickListener());
+
+        ImageView mGalleryPickerButton = (ImageView) rootView.findViewById(R.id.galleryPickerButton);
+        mGalleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
         return rootView;
     }
 
@@ -115,6 +136,31 @@ public class CreateTextPostFragment extends JodelFragment{
         rootLayout.addView(secondRow);
 
         return rootLayout;
+    }
+
+    @DexAdd
+    @Override
+    public void onActivityResult(int i, int i1, Intent intent) {
+        if (i == 90 && i1 == RESULT_OK) {
+            try {
+                Uri IMAGE_URI = intent.getData();
+                InputStream image_stream = getContext().getContentResolver().openInputStream(IMAGE_URI);
+                Bitmap imageToInject = BitmapFactory.decodeStream(image_stream);
+                mPostCreationFragment.handle(new PictureTakenEvent(imageToInject));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class OnGalleryPickerClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent photoPicker = new Intent(Intent.ACTION_PICK);
+            photoPicker.setType("image/*");
+            CreateTextPostFragment.this.startActivityForResult(photoPicker, 90);
+        }
     }
 
     class OnColorPickerClickListener implements  View.OnClickListener {
