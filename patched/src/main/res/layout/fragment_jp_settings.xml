@@ -127,8 +127,8 @@
                             android:onClick="btnChooseLocation"
                             android:id="@+id/jp_btn_choose_location"
                             android:text="Change"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
                             android:padding="5dp"
                             android:background="@color/orange"
                             android:layout_width="wrap_content"
@@ -140,8 +140,8 @@
                             android:layout_height="wrap_content" />
 
                         <Button
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="15dp"
                             android:background="@color/orange"
                             android:id="@+id/jp_btn_save_coords"
                             android:text="Save"

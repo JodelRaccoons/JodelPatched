@@ -33,7 +33,7 @@ public class JPLocationManager {
         @Override
         public void onProviderDisabled(String provider) {}
     };
-    private static Location mLocation = null;
+    private static Location mLocation = new Location("Default");
 
     public static Location getLocation() {
         if (mLocation != null) {

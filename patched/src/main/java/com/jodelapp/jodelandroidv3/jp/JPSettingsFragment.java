@@ -137,6 +137,13 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
         super.onResume();
         if (mMapView != null)
             mMapView.onResume();
+
+
+        double[] mCoords = mStorage.getSpoofLocation();
+        mLatitude.setText(String.valueOf(mCoords[0]));
+        mLongtitude.setText(String.valueOf(mCoords[1]));
+
+        mapCameraUpdate();
     }
 
     @Override
@@ -212,9 +219,20 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView.getId() == R.id.jp_location_toggle_switch) {
-            mStorage.isSpoofLocation(isChecked);
-            JPUtils.updateJodelLocation();
-            mapCameraUpdate();
+            if (mStorage.getSpoofLocation()[0] != 0 && mStorage.getSpoofLocation()[1] != 0) {
+                mStorage.isSpoofLocation(isChecked);
+                JPUtils.updateJodelLocation();
+                mapCameraUpdate();
+            } else {
+                buttonView.setChecked(false);
+                YoYo.with(Techniques.Shake)
+                        .duration(300)
+                        .playOn(mLatitude);
+                YoYo.with(Techniques.Shake)
+                        .duration(300)
+                        .playOn(mLongtitude);
+                TSnackbar.make("Please choose a location first!");
+            }
         }
     }
 

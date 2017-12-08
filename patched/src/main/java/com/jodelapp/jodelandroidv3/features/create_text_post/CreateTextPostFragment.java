@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
@@ -67,6 +69,15 @@ public class CreateTextPostFragment extends JodelFragment{
 
         ImageView mGalleryPickerButton = (ImageView) rootView.findViewById(R.id.galleryPickerButton);
         mGalleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
+
+        //Enable pasting
+        RelativeLayout scrollContainer = (RelativeLayout) ((ScrollView) rootView.findViewById(R.id.scrollContainer)).getChildAt(0);
+        scrollContainer.setClickable(true);
+        scrollContainer.setLongClickable(true);
+        scrollContainer.getChildAt(0).setClickable(true);
+        scrollContainer.getChildAt(0).setLongClickable(true);
+        scrollContainer.getChildAt(1).setClickable(true);
+        scrollContainer.getChildAt(1).setLongClickable(true);
         return rootView;
     }
 
