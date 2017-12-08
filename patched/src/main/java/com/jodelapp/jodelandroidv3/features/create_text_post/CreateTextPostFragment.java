@@ -22,7 +22,9 @@ import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 import com.tellm.android.app.mod.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import lanchon.dexpatcher.annotation.DexAction;
@@ -146,7 +148,11 @@ public class CreateTextPostFragment extends JodelFragment{
                 Uri IMAGE_URI = intent.getData();
                 InputStream image_stream = getContext().getContentResolver().openInputStream(IMAGE_URI);
                 Bitmap imageToInject = BitmapFactory.decodeStream(image_stream);
-                mPostCreationFragment.handle(new PictureTakenEvent(imageToInject));
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageToInject.compress(Bitmap.CompressFormat.JPEG,0,stream);
+                byte[] byteArray = stream.toByteArray();
+                Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+                mPostCreationFragment.handle(new PictureTakenEvent(compressedBitmap));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

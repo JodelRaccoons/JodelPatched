@@ -2,6 +2,7 @@ package com.jodelapp.jodelandroidv3.jp;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -56,6 +57,8 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
         View mRootView = layoutInflater.inflate(R.layout.fragment_jp_settings, null, false);
 
         mMapView = (MapView) mRootView.findViewById(R.id.jp_settings_map_view);
+        mMapView.onCreate(mBundle);
+        mMapView.a(this);
         LinearLayout mBetaFeaturesButton = (LinearLayout) mRootView.findViewById(R.id.jp_ll_beta_features);
         mBetaFeaturesButton.setOnClickListener(this);
 
@@ -100,9 +103,6 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-
-        mMapView.onCreate(mBundle);
-        mMapView.a(this);
     }
 
     private void mapCameraUpdate(){
@@ -111,7 +111,6 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
 
     private void mapCameraUpdate(GoogleMap map) {
             Location mLocation = JPUtils.getLocation();
-
 
             LatLng mLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
 
@@ -136,31 +135,36 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        mMapView.onResume();
+        if (mMapView != null)
+            mMapView.onResume();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+        if (mMapView != null)
+            mMapView.onSaveInstanceState(outState);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mMapView.onDestroy();
+        if (mMapView != null)
+            mMapView.onDestroy();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mMapView.onPause();
+        if (mMapView != null)
+            mMapView.onPause();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mMapView.onLowMemory();
+        if (mMapView != null)
+            mMapView.onLowMemory();
     }
 
     @Override

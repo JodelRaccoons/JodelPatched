@@ -68,7 +68,13 @@ public class JPUtils {
             mLocation.setLongitude(mStorage.getSpoofLocation()[1]);
             return mLocation;
         } else {
-            return JPLocationManager.getLocation();
+            Location mLocation = JPLocationManager.getLocation();
+            if (mLocation == null){
+                mLocation = new Location("JP");
+                mLocation.setLatitude(0);
+                mLocation.setLongitude(0);
+            }
+            return mLocation;
         }
     }
 

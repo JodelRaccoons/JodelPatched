@@ -71,7 +71,8 @@ public class JPLocationManager {
                     }
                 }
 
-                Log.d(JPLocationManager.class.getSimpleName(), "Got location after "+loops+" iterations: "+ mLocation.toString());
+                if (mLocation != null)
+                    Log.d(JPLocationManager.class.getSimpleName(), "Got location after "+loops+" iterations: "+ mLocation.toString());
 
             } catch (Exception e) {
                 e.printStackTrace();

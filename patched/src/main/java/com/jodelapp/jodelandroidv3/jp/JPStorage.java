@@ -1,11 +1,16 @@
 package com.jodelapp.jodelandroidv3.jp;
 
 import android.content.SharedPreferences;
+import android.location.Address;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.jodelapp.jodelandroidv3.JodelApp;
+import com.jodelapp.jodelandroidv3.api.model.Location;
 
+import java.util.AbstractMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -14,6 +19,7 @@ import lanchon.dexpatcher.annotation.DexAdd;
 @DexAdd
 public class JPStorage {
     private static final String PREFS_NAME = "ImSorryJodel";
+    private static final String PREFS_FAST_LOCATION_NAME = "FastLocationPicker";
     private static final String FEATURES = "features";
     private static final String SPOOF_LOCATION = "spoof_location";
     private static final String SPOOF_LOCATION_LAT = "spoof_location_lat";
@@ -21,11 +27,13 @@ public class JPStorage {
     private static final int VERSION = 1;
 
     private SharedPreferences settings = null;
+    private SharedPreferences fastLocationStorage = null;
     private Pattern splitSpace = Pattern.compile(" ");
     private Pattern splitColon = Pattern.compile(":");
 
     public JPStorage() {
         settings = JodelApp.staticContext.getSharedPreferences(PREFS_NAME, 0);
+        fastLocationStorage = JodelApp.staticContext.getSharedPreferences(PREFS_FAST_LOCATION_NAME, 0);
         int version = settings.getInt("version", 0);
         /*if (version < VERSION) {
             // TODO: Just reset all to 0/false
@@ -77,6 +85,21 @@ public class JPStorage {
     public void setSpoofLocation(double latitude, double longitude) {
         settings.edit().putString(SPOOF_LOCATION_LAT, String.valueOf(latitude)).apply();
         settings.edit().putString(SPOOF_LOCATION_LNG, String.valueOf(longitude)).apply();
+    }
+
+    public void setFastLocationSpoof(int index, Map.Entry<String,LatLng> mEntry) {
+        fastLocationStorage.edit().putString(String.valueOf(index),mEntry.getKey()
+                + ":" + mEntry.getValue().latitude
+                + ":" + mEntry.getValue().longitude).apply();
+    }
+
+    public Map.Entry<String,LatLng> getFastLocationSpoof(int index){
+        String storedString = fastLocationStorage.getString(String.valueOf(index),null);
+        if (storedString != null) {
+            String[] mStringArr = storedString.split(":");
+            return new AbstractMap.SimpleEntry<String, LatLng>(mStringArr[0],
+                    new LatLng(Double.parseDouble(mStringArr[1]), Double.parseDouble(mStringArr[2])));
+        } else return null;
     }
 
     public double[] getSpoofLocation() {

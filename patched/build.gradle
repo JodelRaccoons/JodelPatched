@@ -152,6 +152,9 @@ dependencies {
 //    compile 'com.daimajia.androidanimations:library:2.3@aar'
     compile 'com.snatik:storage:2.1.0'
     compile 'com.android.volley:volley:1.0.0'
+    compile ('id.zelory:compressor:1.0.4') {
+        exclude group: 'io.reactivex', module: 'rxjava'
+    }
 }
 repositories {
     mavenCentral()
