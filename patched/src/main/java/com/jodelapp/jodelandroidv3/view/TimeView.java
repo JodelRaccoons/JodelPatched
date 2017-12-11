@@ -21,6 +21,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
  * Created by Admin on 07.12.2017.
  */
 
+@SuppressWarnings({"unused", "InfiniteRecursion", "FieldCanBeLocal"})
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class TimeView extends TextView{
 
@@ -34,12 +35,14 @@ public class TimeView extends TextView{
     }
 
     @SuppressLint("SimpleDateFormat")
-    @DexReplace
+    @DexWrap
     private void update() {
-        this.lastUpdate = System.currentTimeMillis();
-        setText(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(dateTime.getMillis()))
-                + " | "
-                + getTimeDiff(this.dateTime));
+        if (dateTime != null){
+            this.lastUpdate = System.currentTimeMillis();
+            setText(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(dateTime.getMillis()))
+                    + " | "
+                    + getTimeDiff(this.dateTime));
+        } else update();
     }
 
     @DexIgnore

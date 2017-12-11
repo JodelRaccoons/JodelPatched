@@ -1,5 +1,6 @@
 package com.jodelapp.jodelandroidv3.jp;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -110,8 +111,9 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     }
 
     private void mapCameraUpdate(GoogleMap map) {
-            Location mLocation = JPUtils.getLocation();
+        Location mLocation = JPUtils.getLocation();
 
+        if (mLocation != null) {
             LatLng mLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
 
             try {
@@ -129,6 +131,9 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
             } catch (NullPointerException e) {
                 Log.d(getClass().getSimpleName(),e.getMessage());
             }
+        } else {
+            TSnackbar.make("We cannot find your location...");
+        }
 
     }
 
@@ -185,7 +190,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
                         "io.github.krokofant.placepickerproxy.MainActivity");
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, "your title text");
                 MainActivity.staticActivity.startActivityForResult(sharingIntent, 108);
-            } catch (IllegalArgumentException e) {
+            } catch (ActivityNotFoundException e) {
                 TSnackbar.make("Please install the JodelTools first!");
             }
         } else if (v.getId() == R.id.jp_btn_save_coords) {

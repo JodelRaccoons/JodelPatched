@@ -34,10 +34,14 @@ public class FeedRecyclerAdapter {
     @DexWrap
     private void bindPostViewHolder(PostViewHolder postViewHolder, int i) {
         bindPostViewHolder(postViewHolder, i);
-        Post mPost = getPosts().get(i);
+        try {
+            Post mPost = getPosts().get(i);
 
-        if (!mPost.isFromHome()) {
-            postViewHolder.cornerText.setText(String.valueOf(mPost.getDistance()) + " km");
+            if (!mPost.isFromHome()) {
+                postViewHolder.cornerText.setText(String.valueOf(mPost.getDistance()) + " km");
+            }
+        } catch(IndexOutOfBoundsException e) {
+            /*IGNORED*/
         }
     }
 }

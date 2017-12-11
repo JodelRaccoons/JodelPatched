@@ -3,11 +3,13 @@ package com.jodelapp.jodelandroidv3.features.create_text_post;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
+import com.jodelapp.jodelandroidv3.features.create_photo_post.CreatePhotoPostFragment;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
+import com.jodelapp.jodelandroidv3.view.CameraPreview;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
+import com.jodelapp.jodelandroidv3.view.adapter.PostCreationTypesAdapter;
 import com.tellm.android.app.mod.R;
 
 import java.io.ByteArrayOutputStream;
@@ -156,15 +162,9 @@ public class CreateTextPostFragment extends JodelFragment{
     public void onActivityResult(int i, int i1, Intent intent) {
         if (i == 90 && i1 == RESULT_OK) {
             try {
-                Uri IMAGE_URI = intent.getData();
-                InputStream image_stream = getContext().getContentResolver().openInputStream(IMAGE_URI);
-                Bitmap imageToInject = BitmapFactory.decodeStream(image_stream);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageToInject.compress(Bitmap.CompressFormat.JPEG,0,stream);
-                byte[] byteArray = stream.toByteArray();
-                Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
-                mPostCreationFragment.handle(new PictureTakenEvent(compressedBitmap));
-            } catch (FileNotFoundException e) {
+                Bitmap imageBitmap = SiliCompressor.with(getContext()).getCompressBitmap(SiliCompressor.getRealPathFromURI_API19(getContext(), intent.getData()));
+                PostCreationFragment.mInstance.handle(new PictureTakenEvent(imageBitmap));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
