@@ -39,9 +39,18 @@ public class TimeView extends TextView{
     private void update() {
         if (dateTime != null){
             this.lastUpdate = System.currentTimeMillis();
-            setText(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(dateTime.getMillis()))
-                    + " | "
-                    + getTimeDiff(this.dateTime));
+            String dateFormat;
+            if(lastUpdate - dateTime.getMillis() < (1000 * 3600))
+                dateFormat = getTimeDiff(this.dateTime);
+            else if(lastUpdate - dateTime.getMillis() < (1000 * 3600 * 24))
+                dateFormat = getTimeDiff(this.dateTime)
+                        + " | "
+                        + new SimpleDateFormat("HH:mm").format(new Date(dateTime.getMillis()));
+            else
+                dateFormat = getTimeDiff(this.dateTime)
+                        + " | "
+                        + new SimpleDateFormat("MM/dd/yyyy HH:mm").format(new Date(dateTime.getMillis()));
+            setText(dateFormat);
         } else update();
     }
 
