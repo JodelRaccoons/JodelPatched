@@ -18,6 +18,7 @@ import com.jodelapp.jodelandroidv3.data.googleservices.location.LocationUpdatesO
 import com.jodelapp.jodelandroidv3.events.FeedUpdateEvent;
 import com.jodelapp.jodelandroidv3.events.HomeModeOffEvent;
 import com.jodelapp.jodelandroidv3.events.LocationUpdateEvent;
+import com.jodelapp.jodelandroidv3.model.Storage;
 import com.jodelapp.jodelandroidv3.view.MainActivity;
 import com.squareup.otto.Bus;
 import com.tellm.android.app.mod.R;
@@ -42,7 +43,7 @@ public class JPUtils {
     * Possible update sensitive method
     * */
     public static void addFragmentToContent(FragmentActivity mActivity, Fragment mFragment) {
-        mActivity.getSupportFragmentManager().cf().a(android.R.id.content, mFragment).h("").commit();
+        mActivity.getSupportFragmentManager().ci().a(android.R.id.content, mFragment).h("").commit();
     }
 
     public static void updateJodelLocation() {
@@ -51,6 +52,8 @@ public class JPUtils {
 
     private static void updateJodelLocation(Location mLocation) {
         Bus mBus = AppModule.staticBus;
+        JPStorage mStorage = new JPStorage();
+        mStorage.setSpoofLocation(mLocation.getLatitude(), mLocation.getLongitude());
         mBus.post(new LocationUpdateEvent(mLocation));
         mBus.post(new HomeModeOffEvent());
         mBus.post(new FeedUpdateEvent());

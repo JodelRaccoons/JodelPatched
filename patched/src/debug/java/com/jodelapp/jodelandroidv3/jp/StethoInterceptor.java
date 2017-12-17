@@ -611,17 +611,17 @@ public class StethoInterceptor implements Interceptor {
 
         @Nullable
         @Override
-        public MediaType RL() {
-            return mBody.RL();
+        public MediaType RP() {
+            return mBody.RP();
         }
 
         @Override
-        public long RM() {
-            return mBody.RM();
+        public long RQ() {
+            return mBody.RQ();
         }
 
         @Override
-        public BufferedSource RN() {
+        public BufferedSource RR() {
             return mInterceptedSource;
         }
     }

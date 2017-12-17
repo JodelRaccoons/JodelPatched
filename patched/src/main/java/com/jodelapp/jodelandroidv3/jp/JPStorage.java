@@ -5,6 +5,7 @@ import android.location.Address;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.api.model.Location;
 
@@ -87,18 +88,18 @@ public class JPStorage {
         settings.edit().putString(SPOOF_LOCATION_LNG, String.valueOf(longitude)).apply();
     }
 
-    public void setFastLocationSpoof(int index, Map.Entry<String,LatLng> mEntry) {
-        fastLocationStorage.edit().putString(String.valueOf(index),mEntry.getKey()
-                + ":" + mEntry.getValue().latitude
-                + ":" + mEntry.getValue().longitude).apply();
+    public void setFastLocationSpoof(int index, Address mAddress) {
+        fastLocationStorage.edit().putString(String.valueOf(index), new Gson().toJson(mAddress)).apply();
     }
 
-    public Map.Entry<String,LatLng> getFastLocationSpoof(int index){
+    public Address getFastLocationSpoof(int index){
         String storedString = fastLocationStorage.getString(String.valueOf(index),null);
         if (storedString != null) {
-            String[] mStringArr = storedString.split(":");
-            return new AbstractMap.SimpleEntry<String, LatLng>(mStringArr[0],
-                    new LatLng(Double.parseDouble(mStringArr[1]), Double.parseDouble(mStringArr[2])));
+            try {
+                return new Gson().fromJson(storedString,Address.class);
+            } catch (Exception e) {
+                return null;
+            }
         } else return null;
     }
 

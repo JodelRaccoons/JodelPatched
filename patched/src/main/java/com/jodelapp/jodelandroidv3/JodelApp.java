@@ -19,13 +19,21 @@ public class JodelApp extends MultiDexApplication {
     @SuppressLint("StaticFieldLeak")
     @DexAdd
     public static Context staticContext;
+    @DexAdd
+    private static JodelApp mInstance;
+
+    @DexAdd
+    public static JodelApp get() {
+        return mInstance;
+    }
 
     @DexWrap
     private final void initDagger() {
         initDagger();
+        JodelApp.mInstance = this;
         staticContext = getApplicationContext();
-//        staticContext = getAppComponent().getContext();
         new OnlyDebug();
+        Exception e;
         JPLocationManager.getLocation(); //Doing this first will prevent loading times when entering the settingsfragment
     }
 

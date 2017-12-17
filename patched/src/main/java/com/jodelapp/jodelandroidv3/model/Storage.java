@@ -68,4 +68,9 @@ public class Storage {
     public void setUniqueDeviceIdentifier(String a) {
 
     }
+
+    @DexIgnore
+    public void setNewLocationRegistered(boolean z) {
+    }
+
 }

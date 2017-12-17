@@ -93,9 +93,15 @@ android {
         // of the source app. (Data is displayed when the source apk library is built.)
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 1004400
-        versionName '4.73.0'
+        versionCode 1004503
+        versionName '4.74.3'
         setProperty("archivesBaseName", "JodelPatched-$versionName")
+    }
+
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
     signingConfigs {
@@ -158,6 +164,14 @@ dependencies {
     compile ('com.iceteck.silicompressorr:silicompressor:2.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+
+//    compile ('com.jaredrummler:colorpicker:1.0.1') {
+//        exclude group: 'com.android.support', module: 'appcompat-v7'
+//    }
+    compile ('com.pes.materialcolorpicker:library:1.2.0') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
 }
 repositories {
     mavenCentral()

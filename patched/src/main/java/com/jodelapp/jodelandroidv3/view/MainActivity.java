@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.jodelapp.jodelandroidv3.api.model.Location;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
 import com.jodelapp.jodelandroidv3.jp.TSnackbar;
@@ -55,20 +57,28 @@ public class MainActivity extends JodelActivity {
         staticActivity = this;
     }
 
+    @DexIgnore
+    @Override
+    protected String getBottomFragmentScreenName() {
+        return null;
+    }
+
     /*
-    * OnActivityResult from the LocationPicker, implemented in
-    * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
-    * */
+        * OnActivityResult from the LocationPicker, implemented in
+        * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
+        * */
     @DexWrap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 108) {
             JPStorage storage = new JPStorage();
             if (data.getBooleanExtra("fast_location_picker", false)){
                 int index = data.getIntExtra("fast_location_picker_slot",5);
-                String cityName = data.getStringExtra("city");
-                double[] latlng = data.getDoubleArrayExtra("latlng");
-                storage.setFastLocationSpoof(index, new AbstractMap.SimpleEntry<>(cityName, new LatLng(latlng[0], latlng[1])));
-                Toast.makeText(MainActivity.this, "Saved new location!", Toast.LENGTH_LONG).show();
+                Address mPassedAddress = data.getParcelableExtra("address");
+
+                if (mPassedAddress != null) {
+                    storage.setFastLocationSpoof(index, mPassedAddress);
+                    Toast.makeText(MainActivity.this, "Saved new location!", Toast.LENGTH_LONG).show();
+                }
             } else {
                 double[] latlng = data.getDoubleArrayExtra("latlng");
                 Log.i("JodelPatched", "I got location! woho!");
@@ -184,9 +194,9 @@ public class MainActivity extends JodelActivity {
             TextView textView = new TextView(this);
             textView.setGravity(Gravity.CENTER);
 
-            final Map.Entry<String, LatLng> mEntry = mStorage.getFastLocationSpoof(i);
+            final Address mEntry = mStorage.getFastLocationSpoof(i);
             if (mEntry != null) {
-                textView.setText(mEntry.getKey());
+                textView.setText(mEntry.getLocality());
 
                 textView.setOnClickListener(new MainActivity$OnEntryClickListener(mStorage, mEntry, mAlertDialog));
             } else {

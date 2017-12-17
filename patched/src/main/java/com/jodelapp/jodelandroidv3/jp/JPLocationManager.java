@@ -1,16 +1,33 @@
 package com.jodelapp.jodelandroidv3.jp;
 
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jodelapp.jodelandroidv3.AppComponent;
+import com.jodelapp.jodelandroidv3.api.model.LocationUpdateResponse;
+import com.jodelapp.jodelandroidv3.api.model.SendLocationRequest;
+import com.jodelapp.jodelandroidv3.model.Storage;
+import com.jodelapp.jodelandroidv3.usecases.location.BackupAppLocationRemotely;
+import com.jodelapp.jodelandroidv3.usecases.location.BackupAppLocationRemotelyImpl;
 import com.jodelapp.jodelandroidv3.JodelApp;
+import com.jodelapp.jodelandroidv3.analytics.AnalyticsController;
+import com.jodelapp.jodelandroidv3.api.JodelApi;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
+import io.reactivex.Single;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -19,6 +36,9 @@ import static android.content.Context.LOCATION_SERVICE;
  */
 
 public class JPLocationManager {
+
+    @Inject
+    JodelApi mJodelApi;
 
     private static LocationListener mLocList = new LocationListener() {
         @Override
@@ -82,5 +102,32 @@ public class JPLocationManager {
 
 
         return mLocation;
+    }
+
+    public static void updateLocation(Address mAddress){
+//        Address mAddress = new Address(Locale.GERMANY);
+//        mAddress.setLocality("Berlin");
+//        mAddress.setCountryCode("DE");
+//        mAddress.setLatitude(52.520009);
+//        mAddress.setLongitude(13.405049);
+
+        JodelApp mApp = JodelApp.get();
+        AppComponent mAppConponent = mApp.getAppComponent();
+        Storage mStorage = mAppConponent.getStorage();
+
+        com.jodelapp.jodelandroidv3.usecases.LocationManager mLocationManager = mAppConponent.exposeLocationManager();
+        try {
+            Field mAddressField = mLocationManager.getClass().getDeclaredField("address");
+            mAddressField.setAccessible(true);
+            mAddressField.set(mLocationManager,mAddress);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        mStorage.setNewLocationRegistered(false);
+
+        mLocationManager.backupLocationRemotely();
+
+
     }
 }

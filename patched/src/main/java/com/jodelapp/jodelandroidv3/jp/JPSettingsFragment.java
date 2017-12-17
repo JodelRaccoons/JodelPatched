@@ -243,7 +243,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.Aj().aV(false);
+        googleMap.Am().aV(false);
         mapCameraUpdate(googleMap);
     }
 }

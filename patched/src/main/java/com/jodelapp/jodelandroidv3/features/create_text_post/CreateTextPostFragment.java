@@ -162,7 +162,19 @@ public class CreateTextPostFragment extends JodelFragment{
     public void onActivityResult(int i, int i1, Intent intent) {
         if (i == 90 && i1 == RESULT_OK) {
             try {
-                Bitmap imageBitmap = SiliCompressor.with(getContext()).getCompressBitmap(SiliCompressor.getRealPathFromURI_API19(getContext(), intent.getData()));
+                String imagePath;
+                try {
+                    imagePath = SiliCompressor.getRealPathFromURI_API19(getContext(), intent.getData());
+                } catch (IllegalArgumentException e) {
+                    Uri pickedImage = intent.getData();
+                    String[] filePath = { MediaStore.Images.Media.DATA };
+                    Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
+                    cursor.moveToFirst();
+                    imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                    cursor.close();
+                }
+
+                Bitmap imageBitmap = SiliCompressor.with(getContext()).getCompressBitmap(imagePath);
                 PostCreationFragment.mInstance.handle(new PictureTakenEvent(imageBitmap));
             } catch (IOException e) {
                 e.printStackTrace();
