@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lanchon.dexpatcher.annotation.DexAction;
-import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexReplace;
@@ -31,9 +30,6 @@ public class TimeView extends TextView{
     @DexIgnore
     private DateTime dateTime;
 
-    @DexAdd
-    public final static long MILLIS_PER_DAY = 24 * 60 * 60 * 1000L;
-
     public TimeView(Context context) {
         super(context);
     }
@@ -43,20 +39,18 @@ public class TimeView extends TextView{
     private void update() {
         if (dateTime != null){
             this.lastUpdate = System.currentTimeMillis();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = new Date(dateTime.getMillis());
-            Date date2 = new Date(System.currentTimeMillis());
-
-            boolean moreThanDay = Math.abs(date1.getTime() - date2.getTime()) > MILLIS_PER_DAY;
-
-            if (!moreThanDay) {
-                setText(new SimpleDateFormat("HH:mm").format(new Date(dateTime.getMillis()))
+            String dateFormat;
+            if(lastUpdate - dateTime.getMillis() < (1000 * 3600))
+                dateFormat = getTimeDiff(this.dateTime);
+            else if(lastUpdate - dateTime.getMillis() < (1000 * 3600 * 24))
+                dateFormat = getTimeDiff(this.dateTime)
                         + " | "
-                        + getTimeDiff(this.dateTime));
-            } else {
-                setText(getTimeDiff(this.dateTime) + " | " +
-                        new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date(dateTime.getMillis())));
-            }
+                        + new SimpleDateFormat("HH:mm").format(new Date(dateTime.getMillis()));
+            else
+                dateFormat = getTimeDiff(this.dateTime)
+                        + " | "
+                        + new SimpleDateFormat("MM/dd/yyyy HH:mm").format(new Date(dateTime.getMillis()));
+            setText(dateFormat);
         } else update();
     }
 
