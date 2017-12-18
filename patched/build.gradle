@@ -150,7 +150,7 @@ dependencies {
     //        // app using DexPatcher package annotations.
     //        exclude module: 'support-v4'
     //    }
-    debugCompile('com.facebook.stetho:stetho:1.5.0') {
+    compile('com.facebook.stetho:stetho:1.5.0') {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
 
