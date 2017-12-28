@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
@@ -165,5 +166,9 @@ public class JPUtils {
             add("#FF8ABDB0"); //Bluegrayish
             add("#FF9EC41C"); //Green
         }};
+    }
+
+    public static void enableLongClick(EditText editText) {
+        editText.setLongClickable(true);
     }
 }

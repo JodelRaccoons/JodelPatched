@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -37,6 +38,7 @@ import java.io.InputStream;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
+import lanchon.dexpatcher.annotation.DexAppend;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
@@ -50,6 +52,14 @@ import static android.widget.LinearLayout.VERTICAL;
  */
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class CreateTextPostFragment extends JodelFragment{
+
+    @DexIgnore
+    EditText etPost;
+
+    @DexAppend
+    private void initViews() {
+        JPUtils.enableLongClick(etPost);
+    }
 
     @DexIgnore
     CreateTextPostContract.Presenter presenter;
