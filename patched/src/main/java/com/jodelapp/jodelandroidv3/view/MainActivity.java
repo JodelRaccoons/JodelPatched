@@ -90,10 +90,10 @@ public class MainActivity extends JodelActivity {
 
 
     @DexReplace
-    private void lambda$setupHomeTownTab$5(View view){
+    static void lambda$setupHomeTownTab$5(MainActivity mainActivity, View view){
         if (view.getId() == R.id.feed_tab) {
-            final AlertDialog dialog = new AlertDialog.Builder(this).create();
-            dialog.setView(getAlertDialogView(dialog));
+            final AlertDialog dialog = new AlertDialog.Builder(mainActivity).create();
+            dialog.setView(mainActivity.getAlertDialogView(dialog));
             dialog.show();
         }
     }
