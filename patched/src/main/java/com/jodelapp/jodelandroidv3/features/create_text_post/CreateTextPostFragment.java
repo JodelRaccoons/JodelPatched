@@ -25,6 +25,7 @@ import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
 import com.jodelapp.jodelandroidv3.features.create_photo_post.CreatePhotoPostFragment;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
+import com.jodelapp.jodelandroidv3.jp.TSnackbar;
 import com.jodelapp.jodelandroidv3.view.CameraPreview;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
@@ -55,20 +56,8 @@ public class CreateTextPostFragment extends JodelFragment{
 
     @DexIgnore
     EditText etPost;
-
-    @DexAppend
-    private void initViews() {
-        JPUtils.enableLongClick(etPost);
-    }
-
     @DexIgnore
     CreateTextPostContract.Presenter presenter;
-
-    @DexAdd
-    public void setPostCreationFragment(PostCreationFragment mPostCreationFragment) {
-        this.mPostCreationFragment = mPostCreationFragment;
-    }
-
     @DexAdd
     PostCreationFragment mPostCreationFragment;
 
@@ -76,30 +65,6 @@ public class CreateTextPostFragment extends JodelFragment{
     public CreateTextPostFragment(String s) {
         super(s);
     }
-
-    @DexWrap
-    public android.view.View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        View rootView = onCreateView(layoutInflater, viewGroup, bundle);
-        ImageView mColorPickerButton = (ImageView) rootView.findViewById(R.id.colorPickerButton);
-        mColorPickerButton.setOnClickListener(new OnColorPickerClickListener());
-
-        ImageView mGalleryPickerButton = (ImageView) rootView.findViewById(R.id.galleryPickerButton);
-        mGalleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
-
-        //Enable pasting
-        RelativeLayout scrollContainer = (RelativeLayout) ((ScrollView) rootView.findViewById(R.id.scrollContainer)).getChildAt(0);
-        scrollContainer.setClickable(true);
-        scrollContainer.setLongClickable(true);
-        scrollContainer.getChildAt(0).setClickable(true);
-        scrollContainer.getChildAt(0).setLongClickable(true);
-        scrollContainer.getChildAt(1).setClickable(true);
-        scrollContainer.getChildAt(1).setLongClickable(true);
-        return rootView;
-    }
-
-    @DexIgnore
-    public void setContainerBackgroundColor(String str) {}
-
 
     @DexAdd
     public static View getColorPickerView() {
@@ -167,32 +132,55 @@ public class CreateTextPostFragment extends JodelFragment{
         return rootLayout;
     }
 
+    @DexAppend
+    private void initViews() {
+        JPUtils.enableLongClick(etPost);
+    }
+
+    @DexAdd
+    public void setPostCreationFragment(PostCreationFragment mPostCreationFragment) {
+        this.mPostCreationFragment = mPostCreationFragment;
+    }
+
+    @DexWrap
+    public android.view.View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+        View rootView = onCreateView(layoutInflater, viewGroup, bundle);
+        ImageView mColorPickerButton = (ImageView) rootView.findViewById(R.id.colorPickerButton);
+        mColorPickerButton.setOnClickListener(new OnColorPickerClickListener());
+
+        ImageView mGalleryPickerButton = (ImageView) rootView.findViewById(R.id.galleryPickerButton);
+        mGalleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
+
+        //Enable pasting
+        RelativeLayout scrollContainer = (RelativeLayout) ((ScrollView) rootView.findViewById(R.id.scrollContainer)).getChildAt(0);
+        scrollContainer.setClickable(true);
+        scrollContainer.setLongClickable(true);
+        for (int i = 0; i < scrollContainer.getChildCount(); i++) {
+            scrollContainer.getChildAt(i).setClickable(true);
+            scrollContainer.getChildAt(i).setLongClickable(true);
+        }
+
+        return rootView;
+    }
+
+    @DexIgnore
+    public void setContainerBackgroundColor(String str) {}
+
     @DexAdd
     @Override
     public void onActivityResult(int i, int i1, Intent intent) {
         if (i == 90 && i1 == RESULT_OK) {
             try {
-                String imagePath;
-                try {
-                    imagePath = SiliCompressor.getRealPathFromURI_API19(getContext(), intent.getData());
-                } catch (IllegalArgumentException e) {
-                    Uri pickedImage = intent.getData();
-                    String[] filePath = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = getContext().getContentResolver().query(pickedImage, filePath, null, null, null);
-                    cursor.moveToFirst();
-                    imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-                    cursor.close();
-                }
-
-                Bitmap imageBitmap = SiliCompressor.with(getContext()).getCompressBitmap(imagePath);
-                PostCreationFragment.mInstance.handle(new PictureTakenEvent(imageBitmap));
-            } catch (IOException e) {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), intent.getData());
+                PostCreationFragment.mInstance.handle(new PictureTakenEvent(bitmap));
+            } catch (Exception e) {
+                TSnackbar.make("Error while picking image: "+e.getMessage());
                 e.printStackTrace();
             }
         }
     }
 
-    class OnGalleryPickerClickListener implements View.OnClickListener {
+    public class OnGalleryPickerClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {

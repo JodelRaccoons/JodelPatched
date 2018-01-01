@@ -6,9 +6,7 @@ import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 
-/**
- * Created by Admin on 06.12.2017.
- */
+@SuppressWarnings({"WeakerAccess", "unused"})
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class CreateTextPostPresenter {
 

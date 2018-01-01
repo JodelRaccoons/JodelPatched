@@ -8,21 +8,14 @@ import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.androidadvance.topsnackbar.TSnackbar;
 import com.jodelapp.jodelandroidv3.AppModule;
 import com.jodelapp.jodelandroidv3.JodelApp;
-import com.jodelapp.jodelandroidv3.data.googleservices.location.LocationUpdatesOnSubscribe$$Lambda$1;
 import com.jodelapp.jodelandroidv3.events.FeedUpdateEvent;
 import com.jodelapp.jodelandroidv3.events.HomeModeOffEvent;
 import com.jodelapp.jodelandroidv3.events.LocationUpdateEvent;
-import com.jodelapp.jodelandroidv3.model.Storage;
-import com.jodelapp.jodelandroidv3.view.MainActivity;
 import com.squareup.otto.Bus;
-import com.tellm.android.app.mod.R;
 
 import org.xmlpull.v1.XmlPullParser;
 

@@ -23,19 +23,22 @@ import lanchon.dexpatcher.annotation.DexWrap;
 public class PostCreationFragment {
  /*Removed unnecessary stuff*/
 
-    @DexIgnore
-    private CreateTextPostFragment mTextPostFragment;
-
     @DexAdd
     public static PostCreationFragment mInstance;
+    @DexIgnore
+    private CreateTextPostFragment mTextPostFragment;
+    @DexIgnore
+    private SwipeableViewPager viewPager;
+
+    @DexAdd
+    public CreateTextPostFragment getTextPostFragment() {
+        return mTextPostFragment;
+    }
 
     @DexAdd
     public SwipeableViewPager getViewPager() {
         return viewPager;
     }
-
-    @DexIgnore
-    private SwipeableViewPager viewPager;
 
     @DexWrap
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
@@ -46,5 +49,6 @@ public class PostCreationFragment {
     }
 
     @DexIgnore
-    public void handle(PictureTakenEvent pictureTakenEvent) {}
+    public void handle(PictureTakenEvent pictureTakenEvent) {
+    }
 }

@@ -30,6 +30,7 @@ public class UniqueDeviceIdentifier {
         }
 
         String uid = generateValue(application, jStorage);
+
         jpStorage.createFile(jpFile, uid);
 
         return uid;
