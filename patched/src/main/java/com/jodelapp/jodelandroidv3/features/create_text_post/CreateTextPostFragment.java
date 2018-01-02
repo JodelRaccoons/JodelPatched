@@ -3,11 +3,8 @@ package com.jodelapp.jodelandroidv3.features.create_text_post;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -20,22 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.iceteck.silicompressorr.SiliCompressor;
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
-import com.jodelapp.jodelandroidv3.features.create_photo_post.CreatePhotoPostFragment;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
 import com.jodelapp.jodelandroidv3.jp.TSnackbar;
-import com.jodelapp.jodelandroidv3.view.CameraPreview;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
-import com.jodelapp.jodelandroidv3.view.adapter.PostCreationTypesAdapter;
 import com.tellm.android.app.mod.R;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
@@ -49,7 +37,7 @@ import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
 /**
- * Created by Admin on 06.12.2017.
+ * ? For post color picker
  */
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class CreateTextPostFragment extends JodelFragment{

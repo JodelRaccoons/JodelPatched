@@ -1,7 +1,6 @@
 package com.jodelapp.jodelandroidv3.features.create_photo_post;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.jodelapp.jodelandroidv3.features.create_text_post.CreateTextPostFragment;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
-import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 import com.tellm.android.app.mod.R;
 
 import lanchon.dexpatcher.annotation.DexAction;
-import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+/**
+ * ? For gallery upload
+ */
 @SuppressWarnings("InfiniteRecursion")
 @SuppressLint("ValidFragment")
 @DexEdit(contentOnly = true, defaultAction = DexAction.IGNORE)

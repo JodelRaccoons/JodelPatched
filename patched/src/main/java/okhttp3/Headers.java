@@ -4,6 +4,9 @@ import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 
+/**
+ * ? For debugging
+ */
 @DexEdit
 public final class Headers {
     @DexAdd

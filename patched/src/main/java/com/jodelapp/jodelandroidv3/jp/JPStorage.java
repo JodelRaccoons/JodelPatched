@@ -4,19 +4,17 @@ import android.content.SharedPreferences;
 import android.location.Address;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.JodelApp;
-import com.jodelapp.jodelandroidv3.api.model.Location;
 
-import java.util.AbstractMap;
-import java.util.Locale;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import lanchon.dexpatcher.annotation.DexAdd;
 
+/**
+ * ? For JodelPatched storage
+ */
 @DexAdd
 public class JPStorage {
     private static final String PREFS_NAME = "ImSorryJodel";

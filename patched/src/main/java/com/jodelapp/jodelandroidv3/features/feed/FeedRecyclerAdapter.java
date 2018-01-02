@@ -12,9 +12,8 @@ import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
 /**
- * Created by Admin on 08.12.2017.
+ * ? For distance formatting
  */
-
 @SuppressWarnings({"ConstantConditions", "unused", "InfiniteRecursion"})
 @DexEdit(contentOnly = true, defaultAction = DexAction.IGNORE)
 public class FeedRecyclerAdapter {

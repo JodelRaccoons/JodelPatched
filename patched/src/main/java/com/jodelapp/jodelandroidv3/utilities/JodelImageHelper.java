@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexReplace;
 
-@DexEdit
+/**
+ * ? For no image blur
+ */
+@DexEdit(contentOnly = true)
 public class JodelImageHelper {
 
     @DexReplace

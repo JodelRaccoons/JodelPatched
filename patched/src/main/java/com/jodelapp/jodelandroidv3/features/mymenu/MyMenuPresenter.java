@@ -1,7 +1,5 @@
 package com.jodelapp.jodelandroidv3.features.mymenu;
 
-import android.widget.CompoundButton;
-
 import com.jodelapp.jodelandroidv3.view.MyMenuItem;
 
 import java.util.List;
@@ -13,7 +11,6 @@ import lanchon.dexpatcher.annotation.DexWrap;
 /**
  * *Added entries in the right side menu of Jodel. Clicks are handled in MyMenuViewHolderPresenter
  */
-
 @SuppressWarnings({"unused", "InfiniteRecursion"})
 @DexEdit(contentOnly = true, defaultAction = DexAction.IGNORE)
 public class MyMenuPresenter {

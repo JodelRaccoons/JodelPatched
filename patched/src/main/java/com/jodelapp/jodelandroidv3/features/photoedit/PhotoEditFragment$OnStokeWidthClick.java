@@ -10,9 +10,8 @@ import com.jodelapp.jodelandroidv3.view.drawing.DrawingView;
 import com.tellm.android.app.mod.R;
 
 /**
- * Created by Admin on 12.12.2017.
+ * ? For enhanced photo editing
  */
-
 class PhotoEditFragment$OnStokeWidthClick implements View.OnClickListener {
 
     private DrawingView drawingCanvas;

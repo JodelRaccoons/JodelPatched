@@ -19,15 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.jodelapp.jodelandroidv3.api.model.Location;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
-import com.jodelapp.jodelandroidv3.jp.JPUtils;
-import com.jodelapp.jodelandroidv3.jp.TSnackbar;
 import com.tellm.android.app.mod.R;
-
-import java.util.AbstractMap;
-import java.util.Map;
 
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
