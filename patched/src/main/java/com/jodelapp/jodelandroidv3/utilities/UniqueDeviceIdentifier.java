@@ -10,6 +10,9 @@ import java.io.File;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+/**
+ * ? For account management
+ */
 @DexEdit(contentOnly = true)
 public class UniqueDeviceIdentifier {
 

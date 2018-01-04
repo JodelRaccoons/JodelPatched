@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import com.jodelapp.jodelandroidv3.view.MainActivity;
 
-/**
- * Created by Admin on 01.11.2017.
- */
 
 public class TSnackbar {
     public static final int LENGTH_INDEFINITE = -2;

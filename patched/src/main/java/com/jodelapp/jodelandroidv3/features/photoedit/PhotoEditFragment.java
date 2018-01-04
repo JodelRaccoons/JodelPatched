@@ -16,6 +16,9 @@ import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+/**
+ * ? For enhanced photo editing
+ */
 @DexEdit(contentOnly = true, defaultAction = DexAction.IGNORE)
 public class PhotoEditFragment extends JodelFragment{
     @DexIgnore

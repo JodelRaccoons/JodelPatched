@@ -6,6 +6,9 @@ import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 
+/**
+ * ? For post color picker
+ */
 @SuppressWarnings({"WeakerAccess", "unused"})
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class CreateTextPostPresenter {

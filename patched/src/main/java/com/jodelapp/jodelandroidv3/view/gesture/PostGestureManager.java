@@ -26,7 +26,9 @@ import lanchon.dexpatcher.annotation.DexReplace;
 
 import static com.jodelapp.jodelandroidv3.JodelApp.staticContext;
 
-
+/**
+ * ? For copy post / download images
+ */
 @DexEdit(contentOnly = true, target = "PostGestureManager$JodelGestureListener")
 class JodelGestureListener extends SimpleOnGestureListener {
     @DexIgnore

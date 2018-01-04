@@ -4,17 +4,14 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
-import com.jodelapp.jodelandroidv3.view.drawing.ColorImageButton;
-import com.jodelapp.jodelandroidv3.view.drawing.DrawingView;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import java.util.Random;
 
 /**
- * Created by Admin on 12.12.2017.
+ * ? For enhanced photo editing
  */
-
 public class PhotoEditFragment$OnPainterClick implements View.OnClickListener {
 
     private FragmentActivity mActivity;

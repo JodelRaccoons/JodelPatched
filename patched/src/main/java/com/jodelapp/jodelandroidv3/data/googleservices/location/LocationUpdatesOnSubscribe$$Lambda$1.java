@@ -13,6 +13,9 @@ import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+/**
+ * ? For location spoof
+ */
 @DexEdit(contentOnly = true, defaultAction = DexAction.ADD)
 public class LocationUpdatesOnSubscribe$$Lambda$1 implements LocationListener {
 

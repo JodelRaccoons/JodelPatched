@@ -7,6 +7,9 @@ import lanchon.dexpatcher.annotation.DexAppend;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 
+/**
+ * ? For copy/paste
+ */
 @DexEdit(contentOnly = true)
 public class ReplyChatBox {
 

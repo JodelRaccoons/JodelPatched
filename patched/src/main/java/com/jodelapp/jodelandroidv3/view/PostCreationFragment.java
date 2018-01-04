@@ -14,9 +14,11 @@ import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
+/**
+ * ? For gallery upload
+ */
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class PostCreationFragment {
- /*Removed unnecessary stuff*/
 
     @DexAdd
     public static PostCreationFragment mInstance;

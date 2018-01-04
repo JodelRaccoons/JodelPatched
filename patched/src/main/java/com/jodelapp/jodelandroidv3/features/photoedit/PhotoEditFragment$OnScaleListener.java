@@ -10,7 +10,7 @@ import static android.widget.ImageView.ScaleType.FIT_CENTER;
 import static android.widget.ImageView.ScaleType.FIT_XY;
 
 /**
- * Created by Admin on 12.12.2017.
+ * ? For enhanced photo editing
  */
 @DexAdd
 public class PhotoEditFragment$OnScaleListener implements View.OnClickListener {

@@ -2,15 +2,12 @@ package com.jodelapp.jodelandroidv3.api;
 
 import android.content.Context;
 
-import java.io.IOException;
-
 import lanchon.dexpatcher.annotation.DexEdit;
-import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexReplace;
-import okhttp3.Interceptor;
-import okhttp3.Response;
 
-
+/**
+ * ? For valid signing of requests
+ */
 @DexEdit(contentOnly = true)
 public class HmacInterceptor {
 

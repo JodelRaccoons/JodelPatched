@@ -5,8 +5,6 @@ import android.content.Context;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,13 +12,11 @@ import java.util.Date;
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
-import lanchon.dexpatcher.annotation.DexReplace;
 import lanchon.dexpatcher.annotation.DexWrap;
 
 /**
- * Created by Admin on 07.12.2017.
+ * ? For adjusted time format
  */
-
 @SuppressWarnings({"unused", "InfiniteRecursion", "FieldCanBeLocal"})
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class TimeView extends TextView{

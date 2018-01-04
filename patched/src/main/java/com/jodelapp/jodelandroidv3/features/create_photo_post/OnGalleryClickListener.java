@@ -6,9 +6,8 @@ import android.view.View;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 
 /**
- * Created by Admin on 01.01.2018.
+ * ? For gallery upload
  */
-
 public class OnGalleryClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
