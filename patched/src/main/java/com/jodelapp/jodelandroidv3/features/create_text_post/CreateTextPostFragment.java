@@ -19,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Space;
 
+import com.daimajia.easing.linear.Linear;
 import com.iceteck.silicompressorr.SiliCompressor;
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
@@ -47,6 +49,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
 import static android.app.Activity.RESULT_OK;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
+import static java.lang.Boolean.TRUE;
 
 /**
  * Created by Admin on 06.12.2017.
@@ -145,14 +148,10 @@ public class CreateTextPostFragment extends JodelFragment{
     @DexWrap
     public android.view.View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View rootView = onCreateView(layoutInflater, viewGroup, bundle);
-        ImageView mColorPickerButton = (ImageView) rootView.findViewById(R.id.colorPickerButton);
-        mColorPickerButton.setOnClickListener(new OnColorPickerClickListener());
-
-        ImageView mGalleryPickerButton = (ImageView) rootView.findViewById(R.id.galleryPickerButton);
-        mGalleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
+        initiateViews(rootView);
 
         //Enable pasting
-        RelativeLayout scrollContainer = (RelativeLayout) ((ScrollView) rootView.findViewById(R.id.scrollContainer)).getChildAt(0);
+        LinearLayout scrollContainer = (LinearLayout) ((ScrollView) rootView.findViewById(R.id.scrollContainer)).getChildAt(0);
         scrollContainer.setClickable(true);
         scrollContainer.setLongClickable(true);
         for (int i = 0; i < scrollContainer.getChildCount(); i++) {
@@ -160,7 +159,56 @@ public class CreateTextPostFragment extends JodelFragment{
             scrollContainer.getChildAt(i).setLongClickable(true);
         }
 
+
         return rootView;
+    }
+
+    @DexAdd
+    private void initiateViews(View mRootView){
+
+        LinearLayout mRootRL = (LinearLayout) mRootView.findViewById(R.id.cameraButton).getParent();
+        ImageView cameraView = mRootView.findViewById(R.id.cameraButton);
+
+        mRootRL.removeView(cameraView);
+
+        LinearLayout mSubLinearLayout = new LinearLayout(getContext());
+        mSubLinearLayout.setOrientation(HORIZONTAL);
+        LinearLayout.LayoutParams mSubLayoutParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mSubLinearLayout.setLayoutParams(mSubLayoutParams);
+
+        ImageView colorPickerButton = new ImageView(getContext());
+        colorPickerButton.setOnClickListener(new OnColorPickerClickListener());
+        colorPickerButton.setClickable(TRUE);
+        colorPickerButton.setImageResource(R.drawable.ic_color_palette);
+        colorPickerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        LinearLayout.LayoutParams mColorPickerButtonParams = new LinearLayout.LayoutParams(JPUtils.dpToPx(60), JPUtils.dpToPx(60));
+        colorPickerButton.setLayoutParams(mColorPickerButtonParams);
+
+        ImageView galleryPickerButton = new ImageView(getContext());
+        galleryPickerButton.setOnClickListener(new OnGalleryPickerClickListener());
+        galleryPickerButton.setClickable(TRUE);
+        galleryPickerButton.setImageResource(R.drawable.ic_icon_gallery);
+        galleryPickerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        LinearLayout.LayoutParams galleryPickerButtonParams = new LinearLayout.LayoutParams(JPUtils.dpToPx(60), JPUtils.dpToPx(60));
+        galleryPickerButton.setLayoutParams(galleryPickerButtonParams);
+
+        Space mSpace1 = new Space(getContext());
+        Space mSpace2 = new Space(getContext());
+
+        LinearLayout.LayoutParams mSpaceLayoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mSpaceLayoutParams.weight = 1;
+
+        mSpace1.setLayoutParams(mSpaceLayoutParams);
+        mSpace2.setLayoutParams(mSpaceLayoutParams);
+
+        mSubLinearLayout.addView(mSpace1);
+        mSubLinearLayout.addView(colorPickerButton);
+        mSubLinearLayout.addView(cameraView);
+        mSubLinearLayout.addView(galleryPickerButton);
+        mSubLinearLayout.addView(mSpace2);
+
+        mRootRL.addView(mSubLinearLayout, 1);
     }
 
     @DexIgnore

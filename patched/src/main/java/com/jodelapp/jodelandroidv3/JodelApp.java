@@ -33,7 +33,6 @@ public class JodelApp extends MultiDexApplication {
         JodelApp.mInstance = this;
         staticContext = getApplicationContext();
         new OnlyDebug();
-        Exception e;
         JPLocationManager.getLocation(); //Doing this first will prevent loading times when entering the settingsfragment
     }
 

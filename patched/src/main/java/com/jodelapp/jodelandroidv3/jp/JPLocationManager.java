@@ -7,27 +7,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.AppComponent;
-import com.jodelapp.jodelandroidv3.api.model.LocationUpdateResponse;
-import com.jodelapp.jodelandroidv3.api.model.SendLocationRequest;
-import com.jodelapp.jodelandroidv3.model.Storage;
-import com.jodelapp.jodelandroidv3.usecases.location.BackupAppLocationRemotely;
-import com.jodelapp.jodelandroidv3.usecases.location.BackupAppLocationRemotelyImpl;
 import com.jodelapp.jodelandroidv3.JodelApp;
-import com.jodelapp.jodelandroidv3.analytics.AnalyticsController;
 import com.jodelapp.jodelandroidv3.api.JodelApi;
+import com.jodelapp.jodelandroidv3.model.Storage;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import javax.inject.Inject;
-
-import io.reactivex.Single;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 
 import static android.content.Context.LOCATION_SERVICE;
 
