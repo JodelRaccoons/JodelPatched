@@ -106,10 +106,15 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("Keystore.keystore")
-            keyAlias "jodelpatched"
-            storePassword ''
-            keyPassword ''
+            try {
+                storeFile file("Keystore.keystore")
+                keyAlias "jodelpatched"
+                storePassword KEYSTORE_PASSWORD
+                keyPassword KEYSTORE_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
         }
     }
 
@@ -175,22 +180,4 @@ dependencies {
 }
 repositories {
     mavenCentral()
-}
-gradle.taskGraph.whenReady { taskGraph ->
-    if (taskGraph.hasTask(':patched:assembleRelease')) {
-        String keyPass = ''
-        if (System.console() == null) {
-            keyPass = (String) JOptionPane.showInputDialog(
-                    "Signing keystore password: ")
-        } else {
-            keyPass = System.console().readPassword("\nSigning keystore password: ")
-        }
-
-        if (keyPass.size() <= 0) {
-            throw new Exception("You must provide a password with non-zero length")
-        }
-
-        android.signingConfigs.release.storePassword = keyPass
-        android.signingConfigs.release.keyPassword = keyPass
-    }
 }
