@@ -1,5 +1,4 @@
 import com.android.build.gradle.tasks.Lint
-import javax.swing.*
 
 // DexPatcher Patched Application plugin:
 apply plugin: 'com.github.lanchon.dexpatcher.patched-application'
