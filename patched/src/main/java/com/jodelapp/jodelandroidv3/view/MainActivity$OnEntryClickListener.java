@@ -34,7 +34,7 @@ public class MainActivity$OnEntryClickListener implements View.OnClickListener{
             mStorage.setSpoofLocation(mEntry.getLatitude(), mEntry.getLongitude());
             mStorage.isSpoofLocation(true);
             JPUtils.updateJodelLocation();
-            JPLocationManager.updateLocation(mEntry);
+            //JPLocationManager.updateLocation(mEntry);
             mAlertdialog.dismiss();
         } else if (mAlertdialog != null) {
             Toast.makeText(mAlertdialog.getContext(), "Something went wrong, please report to the devs!", Toast.LENGTH_LONG).show();

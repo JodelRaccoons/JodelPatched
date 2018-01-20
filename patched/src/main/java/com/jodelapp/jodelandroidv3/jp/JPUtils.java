@@ -52,6 +52,7 @@ public class JPUtils {
         mBus.post(new LocationUpdateEvent(mLocation));
         mBus.post(new HomeModeOffEvent());
         mBus.post(new FeedUpdateEvent());
+        mBus.post(new ForceLocationRequestEvent());
     }
 
     public static Location getLocation() {
