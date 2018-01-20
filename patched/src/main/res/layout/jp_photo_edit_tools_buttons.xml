@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:background="@android:color/transparent"
+        android:id="@+id/ibScaleImage"
+        android:scaleType="fitCenter"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="36dp"
+        android:src="@drawable/ic_scale_arrows" />
+
+    <ImageButton
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        android:id="@+id/ibPainterPalette"
+        android:scaleType="fitCenter"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="36dp"
+        android:src="@drawable/ic_painter_palette" />
+
+    <ImageButton
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        android:id="@+id/ibStrokeWidth"
+        android:scaleType="fitCenter"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="36dp"
+        android:src="@drawable/ic_line_thickness" />
+</LinearLayout>

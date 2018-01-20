@@ -24,7 +24,7 @@ public class PhotoEditFragment$OnPainterClick implements View.OnClickListener {
 
 
     public interface OnColorChoosenCallback{
-        void choosen(int color);
+        void chosen(int color);
     }
 
 
@@ -49,7 +49,7 @@ public class PhotoEditFragment$OnPainterClick implements View.OnClickListener {
                 prevRed = Color.red(color);
                 prevGreen = Color.green(color);
                 prevBlue = Color.blue(color);
-                mCallback.choosen(color);
+                mCallback.chosen(color);
                 mColorPicker.dismiss();
             }
         });

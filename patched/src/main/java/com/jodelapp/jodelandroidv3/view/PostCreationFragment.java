@@ -22,25 +22,10 @@ public class PostCreationFragment {
 
     @DexAdd
     public static PostCreationFragment mInstance;
-    @DexIgnore
-    private CreateTextPostFragment mTextPostFragment;
-    @DexIgnore
-    private SwipeableViewPager viewPager;
-
-    @DexAdd
-    public CreateTextPostFragment getTextPostFragment() {
-        return mTextPostFragment;
-    }
-
-    @DexAdd
-    public SwipeableViewPager getViewPager() {
-        return viewPager;
-    }
 
     @DexWrap
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View mRootView = onCreateView(layoutInflater, viewGroup, bundle);
-        mTextPostFragment.setPostCreationFragment(this);
         mInstance = this;
         return mRootView;
     }
