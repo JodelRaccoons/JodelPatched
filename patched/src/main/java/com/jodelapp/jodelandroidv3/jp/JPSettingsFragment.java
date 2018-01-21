@@ -57,22 +57,22 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View mRootView = layoutInflater.inflate(R.layout.fragment_jp_settings, null, false);
 
-        mMapView = (MapView) mRootView.findViewById(R.id.jp_settings_map_view);
+        mMapView = mRootView.findViewById(R.id.jp_settings_map_view);
         mMapView.onCreate(mBundle);
         mMapView.a(this);
-        LinearLayout mBetaFeaturesButton = (LinearLayout) mRootView.findViewById(R.id.jp_ll_beta_features);
+        LinearLayout mBetaFeaturesButton = mRootView.findViewById(R.id.jp_ll_beta_features);
         mBetaFeaturesButton.setOnClickListener(this);
 
-        mLatitude = (EditText) mRootView.findViewById(R.id.jp_edit_text_latitude);
-        mLongtitude = (EditText) mRootView.findViewById(R.id.jp_edit_text_longtitude);
+        mLatitude = mRootView.findViewById(R.id.jp_edit_text_latitude);
+        mLongtitude = mRootView.findViewById(R.id.jp_edit_text_longtitude);
 
-        Button mSaveCoords = (Button) mRootView.findViewById(R.id.jp_btn_save_coords);
+        Button mSaveCoords = mRootView.findViewById(R.id.jp_btn_save_coords);
         mSaveCoords.setOnClickListener(this);
 
-        Button mChooseLocation = (Button) mRootView.findViewById(R.id.jp_btn_choose_location);
+        Button mChooseLocation = mRootView.findViewById(R.id.jp_btn_choose_location);
         mChooseLocation.setOnClickListener(this);
 
-        mLocationToggle = (Switch) mRootView.findViewById(R.id.jp_location_toggle_switch);
+        mLocationToggle = mRootView.findViewById(R.id.jp_location_toggle_switch);
         mLocationToggle.setOnCheckedChangeListener(this);
 
         this.mBundle = bundle;

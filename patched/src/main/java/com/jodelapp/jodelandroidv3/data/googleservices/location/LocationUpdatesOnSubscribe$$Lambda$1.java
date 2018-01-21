@@ -19,27 +19,8 @@ import lanchon.dexpatcher.annotation.DexWrap;
 @DexEdit(contentOnly = true, defaultAction = DexAction.ADD)
 public class LocationUpdatesOnSubscribe$$Lambda$1 implements LocationListener {
 
-    /*
-    * Required to prevent doubled registration of the EventBus
-    * */
-    @DexAdd
-    private static boolean isRegistered = false;
-
-    @DexAdd
-    @Subscribe
-    public void subscribe(LocationUpdateEvent mLocationUpdateEvent) {
-        mLocationUpdateEvent.location.setLatitude(mLocationUpdateEvent.location.getLatitude());
-        mLocationUpdateEvent.location.setLongitude(mLocationUpdateEvent.location.getLongitude());
-        onLocationChanged(mLocationUpdateEvent.location);
-    }
-
     @DexWrap
     public void onLocationChanged(Location location) {
-        if (!isRegistered){
-            AppModule.staticBus.register(this);
-            isRegistered = true;
-        }
-
         JPStorage storage = new JPStorage();
         if (storage.isSpoofLocation()) {
             double[] loc = storage.getSpoofLocation();

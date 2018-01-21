@@ -92,31 +92,4 @@ public class JPLocationManager {
 
         return mLocation;
     }
-
-    public static void updateLocation(Address mAddress){
-//        Address mAddress = new Address(Locale.GERMANY);
-//        mAddress.setLocality("Berlin");
-//        mAddress.setCountryCode("DE");
-//        mAddress.setLatitude(52.520009);
-//        mAddress.setLongitude(13.405049);
-
-        JodelApp mApp = JodelApp.get();
-        AppComponent mAppConponent = mApp.getAppComponent();
-        Storage mStorage = mAppConponent.getStorage();
-
-        com.jodelapp.jodelandroidv3.usecases.LocationManager mLocationManager = mAppConponent.exposeLocationManager();
-        try {
-            Field mAddressField = mLocationManager.getClass().getDeclaredField("address");
-            mAddressField.setAccessible(true);
-            mAddressField.set(mLocationManager,mAddress);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        mStorage.setNewLocationRegistered(false);
-
-        mLocationManager.backupLocationRemotely();
-
-
-    }
 }

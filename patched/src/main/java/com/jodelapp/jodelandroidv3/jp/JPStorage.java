@@ -2,7 +2,6 @@ package com.jodelapp.jodelandroidv3.jp;
 
 import android.content.SharedPreferences;
 import android.location.Address;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.JodelApp;
@@ -53,7 +52,6 @@ public class JPStorage {
             String[] parts = splitColon.split(featureAndStatus);
             map.put(parts[0], parts[1].equals("1"));
         }
-        Log.i("JodelSettings", map.toString());
         return map;
     }
 

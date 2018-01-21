@@ -26,6 +26,7 @@ import java.util.Map;
 
 import lanchon.dexpatcher.annotation.DexAdd;
 
+@SuppressWarnings({"ResultOfMethodCallIgnored", "WeakerAccess", "unused"})
 @DexAdd
 public class JPUtils {
 
@@ -89,7 +90,6 @@ public class JPUtils {
         return true;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean isValidDouble(String mDouble) {
         try {
             Double.parseDouble(mDouble);
@@ -126,7 +126,7 @@ public class JPUtils {
                         }
                     }
                 } else if (eventType == XmlPullParser.END_TAG) {
-                    if (parser.getName().equals("entry")) {
+                    if (parser.getName().equals("entry") && map != null) {
                         map.put(key, value);
                         key = null;
                         value = null;

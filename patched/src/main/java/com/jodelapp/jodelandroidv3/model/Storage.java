@@ -15,6 +15,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
 /**
  * ? For beta features
  */
+@SuppressWarnings({"unused", "WeakerAccess", "InfiniteRecursion"})
 @DexEdit
 public class Storage {
 
