@@ -45,6 +45,8 @@ public class PhotoEditFragment extends JodelFragment implements PhotoEditFragmen
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         ViewGroup rootView = (ViewGroup) onCreateView(layoutInflater, viewGroup, bundle);
 
+        ((ImageView)rootView.findViewById(R.id.image_edit_preview)).setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
         //adjust the padding of the geofilter button if enabled and inflate depending on activated geofilter
         JPStorage mStorage = new JPStorage();
         if (mStorage.getFeatures().get("picture_geo_filter")) {

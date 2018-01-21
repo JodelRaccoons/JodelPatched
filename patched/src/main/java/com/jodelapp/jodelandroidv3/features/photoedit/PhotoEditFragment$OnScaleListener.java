@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import lanchon.dexpatcher.annotation.DexAdd;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
+import static android.widget.ImageView.ScaleType.CENTER_INSIDE;
 import static android.widget.ImageView.ScaleType.FIT_CENTER;
 import static android.widget.ImageView.ScaleType.FIT_XY;
 
@@ -30,6 +31,9 @@ public class PhotoEditFragment$OnScaleListener implements View.OnClickListener {
                 imageView.setScaleType(FIT_XY);
                 break;
             case FIT_XY:
+                imageView.setScaleType(CENTER_INSIDE);
+                break;
+            case CENTER_INSIDE:
                 imageView.setScaleType(CENTER_CROP);
                 break;
         }
