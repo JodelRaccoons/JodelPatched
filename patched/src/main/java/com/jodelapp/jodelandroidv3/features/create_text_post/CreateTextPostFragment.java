@@ -20,7 +20,6 @@ import com.tellm.android.app.mod.R;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexAdd;
-import lanchon.dexpatcher.annotation.DexAppend;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;

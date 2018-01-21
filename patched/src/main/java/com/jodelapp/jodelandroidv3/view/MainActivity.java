@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import lanchon.dexpatcher.annotation.DexReplace;
 import lanchon.dexpatcher.annotation.DexWrap;
 
 import static android.view.View.GONE;
+import static android.widget.LinearLayout.HORIZONTAL;
 import static com.jodelapp.jodelandroidv3.jp.JPUtils.dpToPx;
 
 /*
@@ -81,20 +84,22 @@ public class MainActivity extends JodelActivity {
             onActivityResult(requestCode, resultCode, data);
     }
 
-
-    @DexReplace
+    @DexAdd
     static void lambda$setupHomeTownTab$5(MainActivity mainActivity, View view){
         if (view.getId() == R.id.feed_tab) {
             final AlertDialog dialog = new AlertDialog.Builder(mainActivity).create();
-            dialog.setView(mainActivity.getAlertDialogView(dialog));
+            dialog.setView(mainActivity.getAlertDialogView(dialog, view));
             dialog.show();
         }
     }
 
+    @DexEdit(target = "lambda$setupHomeTownTab$5")
+    static void source_lambda$setupHomeTownTab$5(MainActivity mainActivity, View view){}
+
 
     @DexAdd
     @SuppressWarnings("ResourceType")
-    private View getAlertDialogView(AlertDialog mAlertDialog) {
+    private View getAlertDialogView(AlertDialog mAlertDialog, View viewToPassToHometown) {
         LinearLayout rootLL = new LinearLayout(this);
         rootLL.setOrientation(LinearLayout.VERTICAL);
 
@@ -111,17 +116,46 @@ public class MainActivity extends JodelActivity {
 
 
         LinearLayout.LayoutParams headerLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        headerView.setPadding(0, dpToPx(24), 0, dpToPx(24));
+        headerView.setPadding(0, dpToPx(7), 0, dpToPx(24));
 
         headerView.setLayoutParams(headerLayoutParams);
 
         headerView.setBackgroundColor(Color.parseColor("#FF9908"));
 
 
+        //Hometown Button
+        LinearLayout hometownLL = new LinearLayout(this);
+        hometownLL.setOrientation(HORIZONTAL);
+        RelativeLayout.LayoutParams hometownLLP = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        hometownLLP.addRule(RelativeLayout.ALIGN_PARENT_START);
+        hometownLLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        hometownLL.setLayoutParams(hometownLLP);
+
+        ImageView imageButton = new ImageView(this);
+        LinearLayout.LayoutParams ibLayoutParams = new LinearLayout.LayoutParams(dpToPx(40), dpToPx(40));
+        ibLayoutParams.leftMargin = dpToPx(14);
+        ibLayoutParams.topMargin = dpToPx(7);
+        imageButton.setOnClickListener(new MainActivity$OnHometownClickListener(this, viewToPassToHometown, mAlertDialog));
+        imageButton.setBackgroundColor(Color.TRANSPARENT);
+        imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageButton.setLayoutParams(ibLayoutParams);
+        imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_house));
+        hometownLL.addView(imageButton);
+
+        Space mSpace = new Space(this);
+        LinearLayout.LayoutParams mSpaceLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mSpace.setLayoutParams(mSpaceLayoutParams);
+        hometownLL.addView(mSpace);
+
+        headerView.addView(hometownLL);
+
+        //Hometown button end
+
         ImageView imageView = new ImageView(this);
         imageView.setId(123455);
         RelativeLayout.LayoutParams ivLayoutParams = new RelativeLayout.LayoutParams(dpToPx(64), dpToPx(64));
         ivLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        ivLayoutParams.setMargins(0, dpToPx(17), 0, dpToPx(5));
         imageView.setLayoutParams(ivLayoutParams);
         imageView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_map_location));
 
@@ -179,6 +213,7 @@ public class MainActivity extends JodelActivity {
         rootLL.addView(headerParent);
 
         final JPStorage mStorage = new JPStorage();
+
         for (int i = 1; i <= 4; i++) {
             LinearLayout.LayoutParams subLLP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             subLLP.gravity = Gravity.CENTER;
