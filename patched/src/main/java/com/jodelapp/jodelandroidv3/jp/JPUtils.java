@@ -50,8 +50,6 @@ public class JPUtils {
         Bus mBus = AppModule.staticBus;
         JPStorage mStorage = new JPStorage();
         mStorage.setSpoofLocation(mLocation.getLatitude(), mLocation.getLongitude());
-        mBus.post(new LocationUpdateEvent(mLocation));
-        mBus.post(new HomeModeOffEvent());
         mBus.post(new FeedUpdateEvent());
         mBus.post(new ForceLocationRequestEvent());
     }
