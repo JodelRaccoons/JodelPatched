@@ -3,6 +3,7 @@ package com.jodelapp.jodelandroidv3.jp;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.location.Location;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -50,8 +51,13 @@ public class JPUtils {
         Bus mBus = AppModule.staticBus;
         JPStorage mStorage = new JPStorage();
         mStorage.setSpoofLocation(mLocation.getLatitude(), mLocation.getLongitude());
-        mBus.post(new FeedUpdateEvent());
         mBus.post(new ForceLocationRequestEvent());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AppModule.staticBus.post(new FeedUpdateEvent());
+            }
+        }, 100);
     }
 
     public static Location getLocation() {
