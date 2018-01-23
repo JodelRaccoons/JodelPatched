@@ -4,6 +4,8 @@ JodelPatched
 
 **Disclaimer:** *This project is not affiliated with Jodel or Jodel Venture GmbH.*
 
+![](https://user-images.githubusercontent.com/5908498/35289623-23110e2a-0068-11e8-9ff5-fdcab6d168ba.png)
+
 # Usage
 
 
