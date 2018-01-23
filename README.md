@@ -22,11 +22,11 @@ To best enjoy the spoofing feature and the account backup we recommend installin
 ## Features
 1. Toggle beta features
 2. Spoof location (applied only to Jodel)
-3. *JodelTools* required
+   - *JodelTools* required
 4. Upload from gallery
 5. No blur on images
 6. Save image by double tap
-7. Images are saved to `/sdcard/JodelPatched/images`.
+   - Images are saved to `/sdcard/JodelPatched/images`.
 8. Copy text by double tap
 9. Account backup
    1. *JodelTools* required
