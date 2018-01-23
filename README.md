@@ -10,7 +10,7 @@ JodelPatched
 
 
 ## Installation
-Visit our [Telegram channel](https://t.me/joinchat/Ahz5YERU5uIIPM5O_v_XSg) for the latest releases.
+Visit our [Telegram channel](https://t.me/JodelPatchedUpdates) for the latest releases or our [user group](https://t.me/joinchat/Ahz5YERU5uIIPM5O_v_XSg) for questions and interactions.
 
 To best enjoy the spoofing feature and the account backup we recommend installing our companion app, *JodelTools*.
 
