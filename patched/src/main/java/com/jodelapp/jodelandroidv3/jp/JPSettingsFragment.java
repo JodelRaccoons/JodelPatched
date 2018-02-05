@@ -244,7 +244,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // TODO: add dynamic get for methods
-        googleMap.Bd().bd(false);
+        googleMap.Bu().bd(false);
         mapCameraUpdate(googleMap);
     }
 }
