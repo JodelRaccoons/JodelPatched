@@ -27,7 +27,7 @@ import static java.lang.Boolean.TRUE;
 public class CreateTextPostFragment$Views {
 
     @DexAdd
-    public static View getColorPickerView() {
+    public View getColorPickerView() {
         Context ctx = JodelApp.staticContext;
 
         LinearLayout.LayoutParams colorLayoutParams = new LinearLayout.LayoutParams(JPUtils.dpToPx(70), JPUtils.dpToPx(70));
@@ -93,7 +93,7 @@ public class CreateTextPostFragment$Views {
     }
 
     @DexAdd
-    public static void initiateViews(View mRootView){
+    public void initiateViews(View mRootView){
 
         LinearLayout mRootRL = (LinearLayout) mRootView.findViewById(R.id.cameraButton).getParent();
         ImageView cameraView = mRootView.findViewById(R.id.cameraButton);

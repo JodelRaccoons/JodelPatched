@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.jodelapp.jodelandroidv3.features.create_text_post.CreateTextPostFragment;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
+import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 import com.tellm.android.app.mod.R;
 
 import lanchon.dexpatcher.annotation.DexAction;
@@ -50,7 +51,7 @@ public class CreatePhotoPostFragment extends JodelFragment {
                 Log.i("JodelPatched", "RelativeLayout at count = " + i);
                 View galleryButton = layoutInflater.inflate(R.layout.jp_camera_gallery_button, (ViewGroup) v, false);
                 ((RelativeLayout) v).addView(galleryButton);
-                galleryButton.setOnClickListener(new OnGalleryClickListener(CreateTextPostFragment.mInstance));
+                galleryButton.setOnClickListener(new OnGalleryClickListener(PostCreationFragment.mInstance));
             }
         }
         return container;

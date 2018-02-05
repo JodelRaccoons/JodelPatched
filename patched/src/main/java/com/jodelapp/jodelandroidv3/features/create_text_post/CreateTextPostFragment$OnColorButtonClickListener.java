@@ -3,8 +3,6 @@ package com.jodelapp.jodelandroidv3.features.create_text_post;
 import android.app.AlertDialog;
 import android.view.View;
 
-import static com.jodelapp.jodelandroidv3.features.create_text_post.CreateTextPostFragment$Views.getColorPickerView;
-
 /**
  * Created by Admin on 04.01.2018.
  */
@@ -19,7 +17,7 @@ public class CreateTextPostFragment$OnColorButtonClickListener implements  View.
 
     @Override
     public void onClick(View v) {
-        View dialoglayout = getColorPickerView();
+        View dialoglayout = mInstance.getViews().getColorPickerView();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mInstance.getActivity());
         builder.setTitle("Pick your desired color");
