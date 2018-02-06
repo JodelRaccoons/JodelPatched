@@ -53,7 +53,7 @@ public class CreateTextPostFragment extends JodelFragment {
         rootView.findViewWithTag("colorPickerButton")
                 .setOnClickListener(new CreateTextPostFragment$OnColorButtonClickListener(this));
         rootView.findViewWithTag("galleryPickerButton")
-                .setOnClickListener(new CreateTextPostFragment$OnGalleryPickerClickListener(this));
+                .setOnClickListener(new CreateTextPostFragment$OnGalleryPickerClickListener());
 
         enablePasting(rootView);
 
