@@ -94,7 +94,7 @@ android {
         targetSdkVersion 22
         versionCode 1004804
         versionName '4.77.4'
-        def modVersionSuffix = 'a'
+        def modVersionSuffix = 'b'
         setProperty("archivesBaseName", "JodelPatched-$versionName$modVersionSuffix")
     }
 
