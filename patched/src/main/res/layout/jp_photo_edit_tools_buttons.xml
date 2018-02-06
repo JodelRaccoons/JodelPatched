@@ -12,7 +12,7 @@
         android:layout_marginBottom="18dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="36dp"
-        android:src="@drawable/ic_scale_arrows" />
+        android:src="@drawable/scale" />
 
     <ImageButton
         android:visibility="gone"
@@ -25,7 +25,7 @@
         android:layout_marginBottom="18dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="36dp"
-        android:src="@drawable/ic_painter_palette" />
+        android:src="@drawable/painter" />
 
     <ImageButton
         android:visibility="gone"
@@ -37,5 +37,5 @@
         android:layout_marginBottom="36dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="36dp"
-        android:src="@drawable/ic_line_thickness" />
+        android:src="@drawable/thickness" />
 </LinearLayout>
