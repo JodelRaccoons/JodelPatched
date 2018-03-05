@@ -21,6 +21,7 @@ import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
 import com.tellm.android.app.mod.R;
 
@@ -55,14 +56,14 @@ public class MainActivity extends JodelActivity {
 
     @DexIgnore
     @Override
-    protected String getBottomFragmentScreenName() {
+    protected EntryPoint getEntryPoint() {
         return null;
     }
 
     /*
-        * OnActivityResult from the LocationPicker, implemented in
-        * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
-        * */
+            * OnActivityResult from the LocationPicker, implemented in
+            * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
+            * */
     @DexWrap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 108) {

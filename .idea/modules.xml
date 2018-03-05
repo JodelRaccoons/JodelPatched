@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JodelPatched.iml" filepath="$PROJECT_DIR$/JodelPatched.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/JodelPatched.iml" filepath="$PROJECT_DIR$/.idea/JodelPatched.iml" />
+      <module fileurl="file://C:\Users\Admin\AndroidStudioProjects\JodelPatched\JodelPatched.iml" filepath="C:\Users\Admin\AndroidStudioProjects\JodelPatched\JodelPatched.iml" />
       <module fileurl="file://$PROJECT_DIR$/patched/patched.iml" filepath="$PROJECT_DIR$/patched/patched.iml" />
+      <module fileurl="file://C:\Users\Admin\AndroidStudioProjects\JodelPatched\patched\patched.iml" filepath="C:\Users\Admin\AndroidStudioProjects\JodelPatched\patched\patched.iml" />
       <module fileurl="file://$PROJECT_DIR$/source/source.iml" filepath="$PROJECT_DIR$/source/source.iml" />
+      <module fileurl="file://C:\Users\Admin\AndroidStudioProjects\JodelPatched\source\source.iml" filepath="C:\Users\Admin\AndroidStudioProjects\JodelPatched\source\source.iml" />
     </modules>
   </component>
 </project>

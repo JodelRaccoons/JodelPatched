@@ -1,5 +1,6 @@
 package com.jodelapp.jodelandroidv3.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jodelapp.jodelandroidv3.events.PictureTakenEvent;
-import com.jodelapp.jodelandroidv3.features.create_text_post.CreateTextPostFragment;
 import com.jodelapp.jodelandroidv3.jp.TSnackbar;
 
 import lanchon.dexpatcher.annotation.DexAction;
@@ -23,14 +23,16 @@ import static android.app.Activity.RESULT_OK;
 /**
  * ? For gallery upload
  */
+@SuppressLint("ValidFragment")
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class PostCreationFragment extends JodelFragment{
 
     @DexAdd
     public static PostCreationFragment mInstance;
 
+    @SuppressLint("ValidFragment")
     protected PostCreationFragment(String s) {
-        super(s);
+        super(null);
     }
 
     @DexWrap

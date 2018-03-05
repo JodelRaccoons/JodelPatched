@@ -1,5 +1,6 @@
 package com.jodelapp.jodelandroidv3.features.photoedit;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.features.posting_to_channel.PostingToChannelFragment;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
@@ -28,6 +30,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
 /**
  * ? For enhanced photo editing
  */
+@SuppressLint("ValidFragment")
 @SuppressWarnings("InfiniteRecursion")
 @DexEdit(defaultAction = DexAction.IGNORE)
 public class PhotoEditFragment extends JodelFragment implements PhotoEditFragment$OnPainterClick.OnColorChoosenCallback, TextWatcher, PhotoEditContract.View  {
@@ -38,7 +41,9 @@ public class PhotoEditFragment extends JodelFragment implements PhotoEditFragmen
     @DexAdd
     View mPhotoEditTools;
 
-    protected PhotoEditFragment(String s) { super(s); }
+    @SuppressLint("ValidFragment")
+    @DexIgnore
+    protected PhotoEditFragment(String s) { super(EntryPoint.PhotoEdit); }
 
     @DexWrap
     @Override

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.easing.linear.Linear;
+import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.tellm.android.app.mod.R;
 
@@ -35,7 +36,7 @@ public class JPFeaturesFragment extends JodelFragment implements CompoundButton.
 
 
     public JPFeaturesFragment() {
-        super(JPFeaturesFragment.class.getSimpleName());
+        super(EntryPoint.UserSettings);
     }
 
     @Override

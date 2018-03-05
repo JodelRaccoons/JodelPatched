@@ -1,5 +1,6 @@
 package com.jodelapp.jodelandroidv3.features.create_text_post;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
 /**
  * Created by Admin on 06.12.2017.
  */
+@SuppressLint("ValidFragment")
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
 public class CreateTextPostFragment extends JodelFragment {
 
@@ -39,8 +41,9 @@ public class CreateTextPostFragment extends JodelFragment {
     @DexAdd
     private CreateTextPostFragment$Views mViews;
 
+    @SuppressLint("ValidFragment")
     @DexIgnore
-    public CreateTextPostFragment(String s) { super(s); }
+    public CreateTextPostFragment(String s) { super(null); }
 
     @DexWrap
     public android.view.View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {

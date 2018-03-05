@@ -3,13 +3,9 @@ package com.jodelapp.jodelandroidv3.data.googleservices.location;
 import android.location.Location;
 
 import com.google.android.gms.location.LocationListener;
-import com.jodelapp.jodelandroidv3.AppModule;
-import com.jodelapp.jodelandroidv3.events.LocationUpdateEvent;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
-import com.squareup.otto.Subscribe;
 
 import lanchon.dexpatcher.annotation.DexAction;
-import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexWrap;
 

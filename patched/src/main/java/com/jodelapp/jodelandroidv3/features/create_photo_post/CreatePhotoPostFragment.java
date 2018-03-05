@@ -33,7 +33,7 @@ public class CreatePhotoPostFragment extends JodelFragment {
 
     @DexIgnore
     CreatePhotoPostFragment(String s) {
-        super(s);
+        super(null);
     }
 
     @DexIgnore

@@ -14,8 +14,6 @@ import android.widget.EditText;
 import com.jodelapp.jodelandroidv3.AppModule;
 import com.jodelapp.jodelandroidv3.JodelApp;
 import com.jodelapp.jodelandroidv3.events.FeedUpdateEvent;
-import com.jodelapp.jodelandroidv3.events.HomeModeOffEvent;
-import com.jodelapp.jodelandroidv3.events.LocationUpdateEvent;
 import com.squareup.otto.Bus;
 
 import org.xmlpull.v1.XmlPullParser;

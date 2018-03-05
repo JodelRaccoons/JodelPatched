@@ -26,6 +26,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.MainActivity;
 import com.tellm.android.app.mod.R;
@@ -50,7 +51,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     private Switch mLocationToggle;
 
     public JPSettingsFragment() {
-        super(JPSettingsFragment.class.getSimpleName());
+        super(EntryPoint.UserSettings);
     }
 
     @Override
