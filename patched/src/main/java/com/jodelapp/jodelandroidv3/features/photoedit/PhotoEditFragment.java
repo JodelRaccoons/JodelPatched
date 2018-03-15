@@ -50,7 +50,7 @@ public class PhotoEditFragment extends JodelFragment implements PhotoEditFragmen
 
         //adjust the padding of the geofilter button if enabled and inflate depending on activated geofilter
         JPStorage mStorage = new JPStorage();
-        if (mStorage.getFeatures().getOrDefault("picture_geo_filter", false)) {
+        if (mStorage.getFeatures() != null && mStorage.getFeatures().get("picture_geo_filter") != null && mStorage.getFeatures().get("picture_geo_filter")) {
             rootView.findViewById(R.id.geo_filter_switch).setPadding(JPUtils.dpToPx(36), JPUtils.dpToPx(24), JPUtils.dpToPx(17), JPUtils.dpToPx(17));
             mPhotoEditTools = layoutInflater.inflate(R.layout.jp_photo_edit_tools_geofilter, rootView, true);
         } else {
