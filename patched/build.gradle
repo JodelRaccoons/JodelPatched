@@ -92,9 +92,9 @@ android {
         // of the source app. (Data is displayed when the source apk library is built.)
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 1005104
+        versionCode 1005102
         versionName '4.80.2'
-        def modVersionSuffix = 'a'
+        def modVersionSuffix = 'b'
         setProperty("archivesBaseName", "JodelPatched-$versionName$modVersionSuffix")
     }
 
