@@ -2,16 +2,12 @@ package com.jodelapp.jodelandroidv3.features.photoedit;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.features.posting_to_channel.PostingToChannelFragment;
@@ -103,16 +99,10 @@ public class PhotoEditFragment extends JodelFragment implements PhotoEditFragmen
     public void afterTextChanged(Editable editable) {}
 
     @Override
-    public void enableFilter(String s) {}
-
-    @Override
     public void goBack() {}
 
     @Override
     public void goToChannelSelectionView(PostingToChannelFragment postingToChannelFragment) {}
-
-    @Override
-    public void hideFilter() {}
 
     @Override
     public void hideTextOnPhoto() {}
@@ -124,16 +114,10 @@ public class PhotoEditFragment extends JodelFragment implements PhotoEditFragmen
     public void setNextButton() {}
 
     @Override
-    public void setupFilterGestureListener() {}
-
-    @Override
     public void setupPicPreviewTouchListener() {}
 
     @Override
     public void showFileError() {}
-
-    @Override
-    public void showFilter() {}
 
     @Override
     public void showProgressBar(boolean b) {}

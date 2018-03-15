@@ -595,7 +595,6 @@ public class StethoInterceptor implements Interceptor {
         @Nullable
         @Override
         public String firstHeaderValue(String name) {
-//            return mResponse.header(name);
             return Get.getHeader(mResponse, name);
         }
     }
@@ -611,17 +610,17 @@ public class StethoInterceptor implements Interceptor {
 
         @Nullable
         @Override
-        public MediaType Vn() {
-            return mBody.Vn();
+        public MediaType SX() {
+            return mBody.SX();
         }
 
         @Override
-        public long Vo() {
-            return mBody.Vo();
+        public long SY() {
+            return mBody.SY();
         }
 
         @Override
-        public BufferedSource Vp() {
+        public BufferedSource SZ() {
             return mInterceptedSource;
         }
     }
