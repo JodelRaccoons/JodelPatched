@@ -2,6 +2,7 @@ package com.jodelapp.jodelandroidv3.jp;
 
 import android.content.SharedPreferences;
 import android.location.Address;
+import android.location.Location;
 
 import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.JodelApp;
@@ -99,6 +100,22 @@ public class JPStorage {
         } else return null;
     }
 
+    public Location getLastKnownRealLocation() {
+        String location = settings.getString("last_known_real_location", null);
+        if (location == null)
+            return null;
+        try {
+            return new Gson().fromJson(location, Location.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setLastKnownRealLocation(Location mLocation) {
+        settings.edit().putString("last_known_real_location", new Gson().toJson(mLocation)).apply();
+    }
+
     public double[] getSpoofLocation() {
         double[] loc = new double[2];
         loc[0] = Double.parseDouble(settings.getString(SPOOF_LOCATION_LAT, "0.0"));
@@ -106,10 +123,11 @@ public class JPStorage {
         return loc;
     }
 
-    public boolean isSpoofLocation() {
+    public boolean setSpoofLocation() {
         return settings.getBoolean(SPOOF_LOCATION, false);
     }
-    public void isSpoofLocation(boolean val) {
+
+    public void setSpoofLocation(boolean val) {
         settings.edit().putBoolean(SPOOF_LOCATION, val).apply();
     }
 }

@@ -1,22 +1,15 @@
 package com.jodelapp.jodelandroidv3.jp;
 
-import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.jodelapp.jodelandroidv3.AppComponent;
 import com.jodelapp.jodelandroidv3.JodelApp;
-import com.jodelapp.jodelandroidv3.api.JodelApi;
-import com.jodelapp.jodelandroidv3.model.Storage;
 
-import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import javax.inject.Inject;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -26,8 +19,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class JPLocationManager {
 
-    @Inject
-    JodelApi mJodelApi;
+    private static JPStorage mStorage = new JPStorage();
 
     private static LocationListener mLocList = new LocationListener() {
         @Override
@@ -42,7 +34,7 @@ public class JPLocationManager {
         @Override
         public void onProviderDisabled(String provider) {}
     };
-    private static Location mLocation = new Location("Default");
+    private static Location mLocation = null;
 
     public static Location getLocation() {
         if (mLocation != null) {
@@ -83,12 +75,21 @@ public class JPLocationManager {
                 if (mLocation != null)
                     Log.d(JPLocationManager.class.getSimpleName(), "Got location after "+loops+" iterations: "+ mLocation.toString());
 
+                mStorage.setLastKnownRealLocation(mLocation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             loops++;
         }
 
+
+        if (mLocation == null) {
+            Log.e(JPLocationManager.class.getSimpleName(), "Was not able to find location after 5 iterations, trying to get it from the storage");
+            mLocation = mStorage.getLastKnownRealLocation();
+        }
+        if (mLocation == null) {
+            Log.e(JPLocationManager.class.getSimpleName(), "Last known real location is null...");
+        }
 
         return mLocation;
     }

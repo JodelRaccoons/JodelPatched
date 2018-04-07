@@ -5,12 +5,8 @@ import android.location.Address;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.jodelapp.jodelandroidv3.jp.JPLocationManager;
 import com.jodelapp.jodelandroidv3.jp.JPStorage;
 import com.jodelapp.jodelandroidv3.jp.JPUtils;
-
-import java.util.Map;
 
 /**
  * Created by Admin on 07.12.2017.
@@ -32,7 +28,7 @@ public class MainActivity$OnEntryClickListener implements View.OnClickListener{
     public void onClick(View v) {
         if (mStorage != null && mEntry != null && mAlertdialog != null) {
             mStorage.setSpoofLocation(mEntry.getLatitude(), mEntry.getLongitude());
-            mStorage.isSpoofLocation(true);
+            mStorage.setSpoofLocation(true);
             JPUtils.updateJodelLocation();
             //JPLocationManager.updateLocation(mEntry);
             mAlertdialog.dismiss();

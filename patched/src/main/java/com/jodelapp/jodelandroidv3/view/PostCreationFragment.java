@@ -25,7 +25,7 @@ import static android.app.Activity.RESULT_OK;
  */
 @SuppressLint("ValidFragment")
 @DexEdit(defaultAction = DexAction.IGNORE, contentOnly = true)
-public class PostCreationFragment extends JodelFragment{
+public class PostCreationFragment extends JodelFragment {
 
     @DexAdd
     public static PostCreationFragment mInstance;

@@ -18,7 +18,7 @@ public class LocationUpdatesOnSubscribe$$Lambda$1 implements LocationListener {
     @DexWrap
     public void onLocationChanged(Location location) {
         JPStorage storage = new JPStorage();
-        if (storage.isSpoofLocation()) {
+        if (storage.setSpoofLocation()) {
             double[] loc = storage.getSpoofLocation();
             location.setLatitude(loc[0]);
             location.setLongitude(loc[1]);

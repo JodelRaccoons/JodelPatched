@@ -2,13 +2,17 @@ package com.jodelapp.jodelandroidv3.jp;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
+import android.graphics.Rect;
 import android.location.Location;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.EditText;
 
 import com.jodelapp.jodelandroidv3.AppModule;
@@ -24,6 +28,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lanchon.dexpatcher.annotation.DexAdd;
+
+import static com.jodelapp.jodelandroidv3.JodelApp.staticContext;
 
 @SuppressWarnings({"ResultOfMethodCallIgnored", "WeakerAccess", "unused"})
 @DexAdd
@@ -48,7 +54,8 @@ public class JPUtils {
     private static void updateJodelLocation(Location mLocation) {
         Bus mBus = AppModule.staticBus;
         JPStorage mStorage = new JPStorage();
-        mStorage.setSpoofLocation(mLocation.getLatitude(), mLocation.getLongitude());
+        if (mStorage.setSpoofLocation())
+            mStorage.setSpoofLocation(mLocation.getLatitude(), mLocation.getLongitude());
         mBus.post(new ForceLocationRequestEvent());
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -56,11 +63,18 @@ public class JPUtils {
                 AppModule.staticBus.post(new FeedUpdateEvent());
             }
         }, 100);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AppModule.staticBus.post(new FeedUpdateEvent());
+            }
+        }, 500);
     }
 
     public static Location getLocation() {
         JPStorage mStorage = new JPStorage();
-        boolean spoofed = mStorage.isSpoofLocation();
+        boolean spoofed = mStorage.setSpoofLocation();
 
         if (spoofed) {
             Location mLocation = new Location("JP");
@@ -68,6 +82,7 @@ public class JPUtils {
                 return JPLocationManager.getLocation();
             mLocation.setLatitude(mStorage.getSpoofLocation()[0]);
             mLocation.setLongitude(mStorage.getSpoofLocation()[1]);
+            Log.d(JPUtils.class.getSimpleName(), "getLocation returned the spoofed location: " + mLocation.toString());
             return mLocation;
         } else {
             Location mLocation = JPLocationManager.getLocation();
@@ -76,6 +91,7 @@ public class JPUtils {
                 mLocation.setLatitude(0);
                 mLocation.setLongitude(0);
             }
+            Log.d(JPUtils.class.getSimpleName(), "getLocation returned the non-spoofed location: " + mLocation.toString());
             return mLocation;
         }
     }
@@ -153,6 +169,22 @@ public class JPUtils {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public static void issueMediaScanner(String filePath) {
+        try {
+            MediaScannerConnection.scanFile(staticContext,
+                    new String[]{filePath}, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+            Log.d(JPUtils.class.getSimpleName(), "Media scanner succeded!");
+        } catch (Exception e) {
+            Log.e(JPUtils.class.getSimpleName(), "Media scanner failed", e);
+        }
+    }
+
     public static class Colors {
         public static ArrayList<String> Colors = new ArrayList<String>() {{
             add("#FFFF9908"); //Orange
@@ -166,5 +198,19 @@ public class JPUtils {
 
     public static void enableLongClick(EditText editText) {
         editText.setLongClickable(true);
+    }
+
+    public static boolean viewsOverlapping(View firstView, View secondView) {
+        int[] firstPosition = new int[2];
+        int[] secondPosition = new int[2];
+
+        firstView.getLocationOnScreen(firstPosition);
+        secondView.getLocationOnScreen(secondPosition);
+
+        Rect rectFirstView = new Rect(firstPosition[0], firstPosition[1],
+                firstPosition[0] + firstView.getMeasuredWidth(), firstPosition[1] + firstView.getMeasuredHeight());
+        Rect rectSecondView = new Rect(secondPosition[0], secondPosition[1],
+                secondPosition[0] + secondView.getMeasuredWidth(), secondPosition[1] + secondView.getMeasuredHeight());
+        return rectFirstView.intersect(rectSecondView);
     }
 }

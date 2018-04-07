@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,7 +27,6 @@ import com.tellm.android.app.mod.R;
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
-import lanchon.dexpatcher.annotation.DexReplace;
 import lanchon.dexpatcher.annotation.DexWrap;
 
 import static android.view.View.GONE;
@@ -101,6 +99,8 @@ public class MainActivity extends JodelActivity {
     @DexAdd
     @SuppressWarnings("ResourceType")
     private View getAlertDialogView(AlertDialog mAlertDialog, View viewToPassToHometown) {
+        final JPStorage jpStorage = new JPStorage();
+
         LinearLayout rootLL = new LinearLayout(this);
         rootLL.setOrientation(LinearLayout.VERTICAL);
 
@@ -124,7 +124,9 @@ public class MainActivity extends JodelActivity {
         headerView.setBackgroundColor(Color.parseColor("#FF9908"));
 
 
-        //Hometown Button
+        //HometownLL beginn
+        //This view includes the hometown redirection, the toggle location and a spacer between
+        //Aditionally there is one view with a crossed line indicating the location spoofing status
         LinearLayout hometownLL = new LinearLayout(this);
         hometownLL.setOrientation(HORIZONTAL);
         RelativeLayout.LayoutParams hometownLLP = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -132,33 +134,66 @@ public class MainActivity extends JodelActivity {
         hometownLLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         hometownLL.setLayoutParams(hometownLLP);
 
-        ImageView imageButton = new ImageView(this);
+        ImageView ibHometown = new ImageView(this);
         LinearLayout.LayoutParams ibLayoutParams = new LinearLayout.LayoutParams(dpToPx(40), dpToPx(40));
         ibLayoutParams.leftMargin = dpToPx(14);
         ibLayoutParams.topMargin = dpToPx(7);
-        imageButton.setOnClickListener(new MainActivity$OnHometownClickListener(this, viewToPassToHometown, mAlertDialog));
-        imageButton.setBackgroundColor(Color.TRANSPARENT);
-        imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageButton.setLayoutParams(ibLayoutParams);
-        imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_house));
-        hometownLL.addView(imageButton);
+        ibHometown.setOnClickListener(new MainActivity$OnHometownClickListener(this, viewToPassToHometown, mAlertDialog));
+        ibHometown.setBackgroundColor(Color.TRANSPARENT);
+        ibHometown.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ibHometown.setLayoutParams(ibLayoutParams);
+        ibHometown.setImageDrawable(getResources().getDrawable(R.drawable.ic_house));
+        hometownLL.addView(ibHometown);
 
         Space mSpace = new Space(this);
         LinearLayout.LayoutParams mSpaceLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mSpaceLayoutParams.weight = 1;
         mSpace.setLayoutParams(mSpaceLayoutParams);
         hometownLL.addView(mSpace);
 
+        RelativeLayout rlToggleLocation = new RelativeLayout(this);
+        LinearLayout.LayoutParams rlToggleLocationLayoutParams = new LinearLayout.LayoutParams(dpToPx(40), dpToPx(40));
+        rlToggleLocationLayoutParams.rightMargin = dpToPx(14);
+        rlToggleLocationLayoutParams.topMargin = dpToPx(7);
+        rlToggleLocation.setLayoutParams(rlToggleLocationLayoutParams);
+
+        ImageView ivCrossingLine = new ImageView(this);
+        RelativeLayout.LayoutParams ivCrossingLineLayoutParams = new RelativeLayout.LayoutParams(dpToPx(35), dpToPx(35));
+        ivCrossingLineLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ivCrossingLine.setLayoutParams(ivCrossingLineLayoutParams);
+        ivCrossingLine.setBackgroundColor(Color.TRANSPARENT);
+        ivCrossingLine.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ivCrossingLine.setImageDrawable(getResources().getDrawable(R.drawable.ic_diagonal_line));
+
+        ImageView ibToggleLocation = new ImageView(this);
+        ibToggleLocation.setOnClickListener(new MainActivity$OnToggleLocationClickListener(this, ivCrossingLine, jpStorage));
+        ibToggleLocation.setBackgroundColor(Color.TRANSPARENT);
+        ibToggleLocation.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ibToggleLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_toggle_location));
+
+        if (jpStorage.setSpoofLocation()) {
+            ivCrossingLine.setVisibility(View.INVISIBLE);
+        } else {
+            ivCrossingLine.setVisibility(View.VISIBLE);
+        }
+
+        rlToggleLocation.addView(ibToggleLocation);
+        rlToggleLocation.addView(ivCrossingLine);
+
+        hometownLL.addView(rlToggleLocation);
+
         headerView.addView(hometownLL);
 
-        //Hometown button end
+        //hometownLL end
 
-        ImageView imageView = new ImageView(this);
-        imageView.setId(123455);
+        ImageView ivMapLocation = new ImageView(this);
+        ivMapLocation.setId(123455);
         RelativeLayout.LayoutParams ivLayoutParams = new RelativeLayout.LayoutParams(dpToPx(64), dpToPx(64));
         ivLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         ivLayoutParams.setMargins(0, dpToPx(17), 0, dpToPx(5));
-        imageView.setLayoutParams(ivLayoutParams);
-        imageView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_map_location));
+        ivMapLocation.setLayoutParams(ivLayoutParams);
+        ivMapLocation.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_map_location));
+
 
         TextView headerTextView = new TextView(this);
         RelativeLayout.LayoutParams tvLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -169,7 +204,7 @@ public class MainActivity extends JodelActivity {
         headerTextView.setText("LOCATION SWITCH");
         headerTextView.setLayoutParams(tvLayoutParams);
 
-        headerView.addView(imageView);
+        headerView.addView(ivMapLocation);
         headerView.addView(headerTextView);
 
         headerParent.addView(headerView);
@@ -213,8 +248,6 @@ public class MainActivity extends JodelActivity {
 
         rootLL.addView(headerParent);
 
-        final JPStorage mStorage = new JPStorage();
-
         for (int i = 1; i <= 4; i++) {
             LinearLayout.LayoutParams subLLP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             subLLP.gravity = Gravity.CENTER;
@@ -223,11 +256,11 @@ public class MainActivity extends JodelActivity {
             TextView textView = new TextView(this);
             textView.setGravity(Gravity.CENTER);
 
-            final Address mEntry = mStorage.getFastLocationSpoof(i);
+            final Address mEntry = jpStorage.getFastLocationSpoof(i);
             if (mEntry != null) {
                 textView.setText(mEntry.getLocality());
 
-                textView.setOnClickListener(new MainActivity$OnEntryClickListener(mStorage, mEntry, mAlertDialog));
+                textView.setOnClickListener(new MainActivity$OnEntryClickListener(jpStorage, mEntry, mAlertDialog));
             } else {
                 textView.setText("Not set");
                 textView.setOnClickListener(new MainActivity$OnEmptyEntryClickListener(this));

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.jodelapp.jodelandroidv3.api.model.Post;
+import com.jodelapp.jodelandroidv3.jp.JPUtils;
 import com.jodelapp.jodelandroidv3.jp.TSnackbar;
 
 import java.io.File;
@@ -91,8 +91,12 @@ class ResponseListener implements Response.Listener<Bitmap>, Response.ErrorListe
         if (!jpStorage.isDirectoryExists(jpImages))
             jpStorage.createDirectory(jpImages);
 
-        jpStorage.createFile(jpImages + File.separator + filename, bitmap);
+        String filePath = jpImages + File.separator + filename;
+
+        jpStorage.createFile(filePath, bitmap);
         TSnackbar.make("Downloaded image", TSnackbar.LENGTH_SHORT);
+
+        JPUtils.issueMediaScanner(filePath);
     }
 
     @Override

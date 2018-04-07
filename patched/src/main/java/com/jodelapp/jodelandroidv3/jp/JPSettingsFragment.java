@@ -3,9 +3,7 @@ package com.jodelapp.jodelandroidv3.jp;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -30,9 +27,6 @@ import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.MainActivity;
 import com.tellm.android.app.mod.R;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.jodelapp.jodelandroidv3.jp.JPUtils.isValidDouble;
 import static com.jodelapp.jodelandroidv3.jp.JPUtils.isValidLatLng;
@@ -87,7 +81,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
         super.onViewCreated(view, bundle);
         mStorage = new JPStorage();
 
-        mLocationToggle.setChecked(mStorage.isSpoofLocation());
+        mLocationToggle.setChecked(mStorage.setSpoofLocation());
 
         double[] mLocation = mStorage.getSpoofLocation();
         String mLat = String.valueOf(mLocation[0]);
@@ -127,10 +121,10 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
                     map.a(cameraUpdate);
                     map.a(mMarkerOptions);
                 } else {
-                    Log.d(getClass().getSimpleName(),"GoogleMap is null");
+                    Log.e(getClass().getSimpleName(), "GoogleMap is null");
                 }
             } catch (NullPointerException e) {
-                Log.d(getClass().getSimpleName(),e.getMessage());
+                Log.e(getClass().getSimpleName(), e.getMessage());
             }
         } else {
             TSnackbar.make("We cannot find your location...");
@@ -189,7 +183,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setClassName("io.github.krokofant.placepickerproxy",
                         "io.github.krokofant.placepickerproxy.MainActivity");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, "your title text");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Location Picker");
                 MainActivity.staticActivity.startActivityForResult(sharingIntent, 108);
             } catch (ActivityNotFoundException e) {
                 TSnackbar.make("Please install the JodelTools first!");
@@ -226,7 +220,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView.getId() == R.id.jp_location_toggle_switch) {
             if (mStorage.getSpoofLocation()[0] != 0 && mStorage.getSpoofLocation()[1] != 0) {
-                mStorage.isSpoofLocation(isChecked);
+                mStorage.setSpoofLocation(isChecked);
                 JPUtils.updateJodelLocation();
                 mapCameraUpdate();
             } else {

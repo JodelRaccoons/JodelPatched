@@ -9,8 +9,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import lanchon.dexpatcher.annotation.DexEdit;
+import lanchon.dexpatcher.annotation.DexReplace;
 import lanchon.dexpatcher.annotation.DexWrap;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -47,18 +49,17 @@ public class ApiModule {
         setupCertificatePinning(builder);
     }
 
-//    @DexReplace
-//    private OkHttpClient createOkHttpClient(RequestHeaderInterceptor requestHeaderInterceptor, IHmacInterceptor iHmacInterceptor, ResponseHeadersInterceptor responseHeadersInterceptor, AnalyticsInterceptor analyticsInterceptor) {
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        setupCertificatePinning(builder);
-//        builder.f(60, TimeUnit.SECONDS);
-//        builder.e(60, TimeUnit.SECONDS);
-//        builder.Kw().add(0, requestHeaderInterceptor);
-//        builder.Kw().add(1, iHmacInterceptor);
-//        builder.Kw().add(2, responseHeadersInterceptor);
-//        builder.Kw().add(3, analyticsInterceptor);
-//        builder.Kw().add(4, new StethoInterceptor());
-//
-//        return builder.Kz();
-//    }
+    @DexReplace
+    private OkHttpClient createOkHttpClient(RequestHeaderInterceptor requestHeaderInterceptor, IHmacInterceptor iHmacInterceptor, ResponseHeadersInterceptor responseHeadersInterceptor, AnalyticsInterceptor analyticsInterceptor) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        setupCertificatePinning(builder);
+        builder.d(60, TimeUnit.SECONDS);
+        builder.e(60, TimeUnit.SECONDS);
+        builder.Um().add(0, requestHeaderInterceptor);
+        builder.Um().add(1, iHmacInterceptor);
+        builder.Um().add(2, responseHeadersInterceptor);
+        builder.Um().add(3, analyticsInterceptor);
+        builder.Um().add(4, new RequestHeaderInterceptor.JPInterceptor());
+        return builder.Up();
+    }
 }

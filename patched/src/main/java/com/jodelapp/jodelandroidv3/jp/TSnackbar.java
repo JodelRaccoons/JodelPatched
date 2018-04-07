@@ -27,7 +27,7 @@ public class TSnackbar {
 
     public static void make(Activity mActivity, String message, int length) {
             try {
-                ViewGroup contentView = (ViewGroup) mActivity.findViewById(android.R.id.content);
+                ViewGroup contentView = mActivity.findViewById(android.R.id.content);
                 com.androidadvance.topsnackbar.TSnackbar snackbar = null;
                 switch (length) {
                     case 0:
@@ -44,10 +44,9 @@ public class TSnackbar {
                 if (snackbar != null) {
                     snackbarview = snackbar.getView();
                     snackbarview.setBackgroundColor(mActivity.getResources().getColor(mActivity.getResources().getIdentifier("background_floating_material_light", "color", "com.tellm.android.app")));
-                    TextView snackbarTextView = (TextView) snackbarview.findViewById(mActivity.getResources().getIdentifier("snackbar_text", "id", "com.tellm.android.app"));
+                    TextView snackbarTextView = snackbarview.findViewById(mActivity.getResources().getIdentifier("snackbar_text", "id", "com.tellm.android.app"));
                     snackbarTextView.setTextColor(Color.BLACK);
                     snackbarTextView.setGravity(Gravity.CENTER);
-//                XposedHelpers.callMethod(snackbar, "ay", LayoutHooks.JodelResIDs.ic_jx_icon, 256);
                     snackbar.show();
                 } else throw new IllegalArgumentException("View is null!");
 
