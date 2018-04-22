@@ -7,6 +7,8 @@ import android.support.multidex.MultiDexApplication;
 import com.jodelapp.jodelandroidv3.jp.JPLocationManager;
 import com.jodelapp.jodelandroidv3.jp.OnlyDebug;
 
+import java.lang.reflect.Method;
+
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 import lanchon.dexpatcher.annotation.DexIgnore;
