@@ -25,7 +25,7 @@ public final class Headers {
         return namesAndValues()[index * 2];
     }
 
-    @DexAdd
+    @DexEdit
     public String value(int index) {
         return namesAndValues()[index * 2 + 1];
     }

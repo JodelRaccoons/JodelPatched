@@ -44,7 +44,7 @@ public class JPUtils {
     * */
     public static void addFragmentToContent(FragmentActivity mActivity, Fragment mFragment) {
         // TODO: add dynamic get for methods
-        mActivity.getSupportFragmentManager().cB().a(android.R.id.content, mFragment).k("").commit();
+        mActivity.getSupportFragmentManager().beginTransaction().add(android.R.id.content, mFragment).addToBackStack("").commit();
     }
 
     public static void updateJodelLocation() {

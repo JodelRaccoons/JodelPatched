@@ -14,22 +14,30 @@ import com.facebook.stetho.inspector.network.NetworkEventReporter;
 import com.facebook.stetho.inspector.network.NetworkEventReporterImpl;
 import com.facebook.stetho.inspector.network.RequestBodyHelper;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.annotation.Nullable;
+
 import lanchon.dexpatcher.annotation.DexAdd;
-import okhttp3.*;
+import okhttp3.Connection;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.internal.http.RealInterceptorChain;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
 import okio.Sink;
 import okio.Source;
-
-import javax.annotation.Nullable;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @DexAdd
 class Get {
@@ -48,7 +56,7 @@ class Get {
     }
 
     static Response getResponse(Interceptor.Chain chain, Request request) throws IOException {
-        Method[] methods = chain.getClass().getDeclaredMethods();
+        /*Method[] methods = chain.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 1 && m.getGenericReturnType().equals(Response.class)) {
                 try {
@@ -57,12 +65,12 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return chain.proceed(request);
     }
 
     static Response getResponse(Response response) {
-        Method[] methods = response.getClass().getDeclaredMethods();
+        /*Method[] methods = response.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 0 && m.getGenericReturnType().equals(Response.class)) {
                 try {
@@ -71,12 +79,12 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return response.cacheResponse();
     }
 
     static ResponseBody getResponseBody(Response response) {
-        Method[] methods = response.getClass().getDeclaredMethods();
+        /*Method[] methods = response.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 0 && m.getGenericReturnType().equals(ResponseBody.class)) {
                 try {
@@ -85,12 +93,12 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return response.body();
     }
 
     static MediaType getMediaType(ResponseBody body) {
-        Method[] methods = body.getClass().getDeclaredMethods();
+        /*Method[] methods = body.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 0 && m.getGenericReturnType().equals(MediaType.class)) {
                 try {
@@ -99,12 +107,12 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return body.contentType();
     }
 
     static BufferedSource getBufferedSource(ResponseBody body) {
-        Method[] methods = body.getClass().getDeclaredMethods();
+        /*Method[] methods = body.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 0 && m.getGenericReturnType().equals(BufferedSource.class)) {
                 try {
@@ -113,12 +121,12 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return body.source();
     }
 
     static InputStream getInputStream(BufferedSource source) {
-        Method[] methods = source.getClass().getDeclaredMethods();
+        /*Method[] methods = source.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 0 && m.getGenericReturnType().equals(InputStream.class)) {
                 try {
@@ -127,13 +135,13 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return source.inputStream();
     }
 
 
     static String getHeader(Response response, String header) {
-        Method[] methods = response.getClass().getDeclaredMethods();
+        /*Method[] methods = response.getClass().getDeclaredMethods();
         for (Method m : methods) {
             if (m.getParameterTypes().length == 1 && m.getGenericReturnType().equals(String.class)) {
                 try {
@@ -142,8 +150,8 @@ class Get {
                     e.printStackTrace();
                 }
             }
-        }
-        return null;
+        }*/
+        return response.header(header);
     }
 
     static String getHeader(Request request, String header) {
@@ -352,6 +360,7 @@ class Get {
     }
 }
 
+
 /**
  * Provides easy integration with <a href="http://square.github.io/okhttp/">OkHttp</a> 3.x by way of
  * the new <a href="https://github.com/square/okhttp/wiki/Interceptors">Interceptor</a> system. To
@@ -365,6 +374,7 @@ class Get {
 @DexAdd
 public class StethoInterceptor implements Interceptor {
     private final NetworkEventReporter mEventReporter = NetworkEventReporterImpl.get();
+
 
 
     @Override
@@ -608,20 +618,22 @@ public class StethoInterceptor implements Interceptor {
             mInterceptedSource = Get.getBuffer(Okio.source(interceptedStream));
         }
 
+        @Override
+        public long contentLength() {
+            return mBody.contentLength();
+        }
+
         @Nullable
         @Override
-        public MediaType SX() {
-            return mBody.SX();
+        public MediaType contentType() {
+            return mBody.contentType();
         }
 
         @Override
-        public long SY() {
-            return mBody.SY();
-        }
-
-        @Override
-        public BufferedSource SZ() {
+        public BufferedSource source() {
             return mInterceptedSource;
         }
     }
+
+
 }

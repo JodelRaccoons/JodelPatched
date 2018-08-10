@@ -31,13 +31,13 @@ public class TSnackbar {
                 com.androidadvance.topsnackbar.TSnackbar snackbar = null;
                 switch (length) {
                     case 0:
-                        snackbar = com.androidadvance.topsnackbar.TSnackbar.a(contentView, message, LENGTH_LONG);
+                        snackbar = com.androidadvance.topsnackbar.TSnackbar.make(contentView, message, LENGTH_LONG);
                         break;
                     case -1:
-                        snackbar = com.androidadvance.topsnackbar.TSnackbar.a(contentView, message, LENGTH_SHORT);
+                        snackbar = com.androidadvance.topsnackbar.TSnackbar.make(contentView, message, LENGTH_SHORT);
                         break;
                     case -2:
-                        snackbar = com.androidadvance.topsnackbar.TSnackbar.a(contentView, message, LENGTH_INDEFINITE);
+                        snackbar = com.androidadvance.topsnackbar.TSnackbar.make(contentView, message, LENGTH_INDEFINITE);
                         break;
                 }
                 View snackbarview = null;

@@ -54,7 +54,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
 
         mMapView = mRootView.findViewById(R.id.jp_settings_map_view);
         mMapView.onCreate(mBundle);
-        mMapView.a(this);
+        mMapView.getMapAsync(this);
         LinearLayout mBetaFeaturesButton = mRootView.findViewById(R.id.jp_ll_beta_features);
         mBetaFeaturesButton.setOnClickListener(this);
 
@@ -112,14 +112,14 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
             LatLng mLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
 
             try {
-                CameraUpdate cameraUpdate = CameraUpdateFactory.a(mLatLng, 10);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(mLatLng, 10);
 
                 MarkerOptions mMarkerOptions = new MarkerOptions();
-                mMarkerOptions.f(mLatLng);
+                mMarkerOptions.position(mLatLng);
 
                 if (map != null) {
-                    map.a(cameraUpdate);
-                    map.a(mMarkerOptions);
+                    map.animateCamera(cameraUpdate);
+                    map.addMarker(mMarkerOptions);
                 } else {
                     Log.e(getClass().getSimpleName(), "GoogleMap is null");
                 }
@@ -185,7 +185,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
                         "io.github.krokofant.placepickerproxy.MainActivity");
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, "Location Picker");
                 MainActivity.staticActivity.startActivityForResult(sharingIntent, 108);
-            } catch (ActivityNotFoundException e) {
+            } catch (ActivityNotFoundException | IllegalArgumentException e) {
                 TSnackbar.make("Please install the JodelTools first!");
             }
         } else if (v.getId() == R.id.jp_btn_save_coords) {
@@ -239,7 +239,7 @@ public class JPSettingsFragment extends JodelFragment implements View.OnClickLis
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // TODO: add dynamic get for methods
-        googleMap.Bu().bd(false);
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
         mapCameraUpdate(googleMap);
     }
 }

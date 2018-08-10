@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class MainActivity extends JodelActivity {
     @DexAdd
     public static MainActivity staticActivity;
 
+    @SuppressWarnings("InfiniteRecursion")
     @SuppressLint("MissingSuperCall")
     @DexWrap
     protected void onCreate(Bundle bundle) {
@@ -59,9 +61,9 @@ public class MainActivity extends JodelActivity {
     }
 
     /*
-            * OnActivityResult from the LocationPicker, implemented in
-            * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
-            * */
+     * OnActivityResult from the LocationPicker, implemented in
+     * com.jodelapp.jodelandroidv3.features.mymenu.adapter.MyMenuViewHolderPresenter#onItemClicked(MyMenuItem mMyMenuItem)
+     * */
     @DexWrap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 108) {
@@ -142,7 +144,7 @@ public class MainActivity extends JodelActivity {
         ibHometown.setBackgroundColor(Color.TRANSPARENT);
         ibHometown.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         ibHometown.setLayoutParams(ibLayoutParams);
-        ibHometown.setImageDrawable(getResources().getDrawable(R.drawable.ic_house));
+        ibHometown.setImageDrawable(getDrawable(R.drawable.ic_house));
         hometownLL.addView(ibHometown);
 
         Space mSpace = new Space(this);
@@ -163,13 +165,13 @@ public class MainActivity extends JodelActivity {
         ivCrossingLine.setLayoutParams(ivCrossingLineLayoutParams);
         ivCrossingLine.setBackgroundColor(Color.TRANSPARENT);
         ivCrossingLine.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        ivCrossingLine.setImageDrawable(getResources().getDrawable(R.drawable.ic_diagonal_line));
+        ivCrossingLine.setImageDrawable(getDrawable(R.drawable.ic_diagonal_line));
 
         ImageView ibToggleLocation = new ImageView(this);
         ibToggleLocation.setOnClickListener(new MainActivity$OnToggleLocationClickListener(this, ivCrossingLine, jpStorage));
         ibToggleLocation.setBackgroundColor(Color.TRANSPARENT);
         ibToggleLocation.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        ibToggleLocation.setImageDrawable(getResources().getDrawable(R.drawable.ic_toggle_location));
+        ibToggleLocation.setImageDrawable(getDrawable(R.drawable.ic_toggle_location));
 
         if (jpStorage.setSpoofLocation()) {
             ivCrossingLine.setVisibility(View.INVISIBLE);
@@ -192,7 +194,7 @@ public class MainActivity extends JodelActivity {
         ivLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         ivLayoutParams.setMargins(0, dpToPx(17), 0, dpToPx(5));
         ivMapLocation.setLayoutParams(ivLayoutParams);
-        ivMapLocation.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_map_location));
+        ivMapLocation.setImageDrawable(getDrawable(R.drawable.ic_map_location));
 
 
         TextView headerTextView = new TextView(this);
@@ -226,7 +228,7 @@ public class MainActivity extends JodelActivity {
         helpImageViewLayoutParams.setMargins(0, 0, 0, dpToPx(12));
         helpImageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         helpImageView.setLayoutParams(helpImageViewLayoutParams);
-        helpImageView.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_information));
+        helpImageView.setImageDrawable(getDrawable(R.drawable.ic_information));
 
 
         final TextView helpDetail = new TextView(this);
@@ -248,7 +250,16 @@ public class MainActivity extends JodelActivity {
 
         rootLL.addView(headerParent);
 
-        for (int i = 1; i <= 4; i++) {
+
+        LinearLayout locationsLL = new LinearLayout(this);
+        LinearLayout.LayoutParams locationsLL_LLP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        locationsLL.setLayoutParams(locationsLL_LLP);
+        locationsLL.setOrientation(LinearLayout.VERTICAL);
+
+        int textViewHeight = dpToPx(30);
+
+        int i;
+        for (i = 1; i <= jpStorage.getNumFastSpoofLocations(); i++) {
             LinearLayout.LayoutParams subLLP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             subLLP.gravity = Gravity.CENTER;
             subLLP.setMargins(0, dpToPx(12), 0, dpToPx(12));
@@ -266,19 +277,45 @@ public class MainActivity extends JodelActivity {
                 textView.setOnClickListener(new MainActivity$OnEmptyEntryClickListener(this));
             }
 
-            textView.setOnLongClickListener(new MainActivity$OnEntryLongClickListener(i, mAlertDialog));
+            textView.setOnLongClickListener(new MainActivity$OnEntryLongClickListener(i, mAlertDialog, jpStorage, textView));
 
             textView.setLayoutParams(subLLP);
-            rootLL.addView(textView);
+            locationsLL.addView(textView);
 
-            if (i != 4) {
+            if (i < jpStorage.getNumFastSpoofLocations() + 1) {
                 View divider = new View(this);
                 LinearLayout.LayoutParams dividerLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3);
                 divider.setBackgroundColor(Color.LTGRAY);
                 divider.setLayoutParams(dividerLayoutParams);
-                rootLL.addView(divider);
+                locationsLL.addView(divider);
             }
+
+            textView.measure(0, 0);
+            if (textView.getMeasuredHeight() != 0 && textViewHeight == dpToPx(15)) {
+                textViewHeight = textView.getMeasuredHeight();
+                Log.d(MainActivity.class.getSimpleName(), "Measured textview height is: " + textViewHeight);
+            } else {
+                Log.d(MainActivity.class.getSimpleName(), "Was not able to measure height: " + textViewHeight);
+            }
+
         }
+        LinearLayout.LayoutParams addLLP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, textViewHeight);
+        addLLP.gravity = Gravity.CENTER;
+        addLLP.setMargins(0, dpToPx(12), 0, dpToPx(12));
+        ImageView addImageView = new ImageView(this);
+        addImageView.setTag("addImageView");
+        addImageView.setImageDrawable(getDrawable(R.drawable.ic_add_square_button));
+        addImageView.setLayoutParams(addLLP);
+        addImageView.setOnClickListener(new MainActivity$OnAddLocationClickListener(locationsLL, this, jpStorage, mAlertDialog));
+
+        locationsLL.addView(addImageView);
+
+        ScrollView mScrollView = new ScrollView(this);
+        mScrollView.setFillViewport(true);
+        mScrollView.addView(locationsLL);
+
+        rootLL.addView(mScrollView);
+
         return rootLL;
     }
 }

@@ -1,13 +1,11 @@
 package com.jodelapp.jodelandroidv3;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
 
 import com.jodelapp.jodelandroidv3.jp.JPLocationManager;
 import com.jodelapp.jodelandroidv3.jp.OnlyDebug;
-
-import java.lang.reflect.Method;
 
 import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
@@ -16,7 +14,7 @@ import lanchon.dexpatcher.annotation.DexWrap;
 
 @SuppressWarnings("InfiniteRecursion")
 @DexEdit(contentOnly = true)
-public class JodelApp extends MultiDexApplication {
+public class JodelApp extends Application {
 
     @SuppressLint("StaticFieldLeak")
     @DexAdd
@@ -42,4 +40,6 @@ public class JodelApp extends MultiDexApplication {
     public AppComponent getAppComponent() {
         return null;
     }
+
+
 }

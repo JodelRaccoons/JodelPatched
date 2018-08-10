@@ -1,13 +1,15 @@
-package com.jodelapp.jodelandroidv3.features.create_photo_post;
+package com.jodelapp.jodelandroidv3.features.create_multimediapost;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.jodelapp.jodelandroidv3.analytics.state.EntryPoint;
+import com.jodelapp.jodelandroidv3.features.create_photo_post.OnGalleryClickListener;
 import com.jodelapp.jodelandroidv3.view.JodelFragment;
 import com.jodelapp.jodelandroidv3.view.PostCreationFragment;
 import com.tellm.android.app.mod.R;
@@ -16,32 +18,18 @@ import java.util.Objects;
 
 import lanchon.dexpatcher.annotation.DexAction;
 import lanchon.dexpatcher.annotation.DexEdit;
-import lanchon.dexpatcher.annotation.DexIgnore;
 import lanchon.dexpatcher.annotation.DexWrap;
 
-/**
- * ? For gallery upload
- */
-@SuppressWarnings("InfiniteRecursion")
-@SuppressLint("ValidFragment")
 @DexEdit(contentOnly = true, defaultAction = DexAction.IGNORE)
-public class CreatePhotoPostFragment extends JodelFragment {
-
-    @DexIgnore
-    CreatePhotoPostFragment(){
-        super(null);
+public class CreateMultimediaPostFragment extends JodelFragment {
+    protected CreateMultimediaPostFragment(EntryPoint entryPoint) {
+        super(entryPoint);
     }
-
-    @DexIgnore
-    CreatePhotoPostFragment(String s) {
-        super(null);
-    }
-
-    @DexIgnore
-    public void shutterTapped() {}
 
     @DexWrap
-    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         ViewGroup container = (ViewGroup) onCreateView(layoutInflater, viewGroup, bundle);
         Log.i("JodelPatched", "initCameraPreview");
         int count = Objects.requireNonNull(container).getChildCount();

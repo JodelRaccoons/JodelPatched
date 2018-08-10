@@ -39,11 +39,11 @@ public class RequestHeaderInterceptor implements Interceptor {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
-            Request.Builder newBuilder = chain.TY().newBuilder();
-            newBuilder.Z("X-JodelPatched-Version", BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE);
-            newBuilder.Z("X-JodelPatched-BuildType", BuildConfig.BUILD_TYPE);
-            newBuilder.Z("X-JodelPatched-GlutenFree", "definitely");
-            return chain.b(newBuilder.Ux());
+            Request.Builder newBuilder = chain.request().newBuilder();
+            newBuilder.addHeader("X-JodelPatched-Version", BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE);
+            newBuilder.addHeader("X-JodelPatched-BuildType", BuildConfig.BUILD_TYPE);
+            newBuilder.addHeader("X-JodelPatched-GlutenFree", "definitely");
+            return chain.proceed(newBuilder.build());
         }
     }
 }

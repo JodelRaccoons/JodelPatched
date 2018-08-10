@@ -29,8 +29,13 @@ public class MyMenuFragment extends JodelFragment {
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         View rootView = onCreateView(layoutInflater, viewGroup, bundle);
-        View inviteView = rootView.findViewById(R.id.inviteGameContainer);
-        inviteView.setVisibility(View.GONE);
+        View inviteView = null;
+        if (rootView != null) {
+            inviteView = rootView.findViewById(R.id.inviteContainer);
+        }
+        if (inviteView != null) {
+            inviteView.setVisibility(View.GONE);
+        }
         return rootView;
     }
 }

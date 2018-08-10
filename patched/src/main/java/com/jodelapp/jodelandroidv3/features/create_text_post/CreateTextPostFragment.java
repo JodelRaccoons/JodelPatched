@@ -32,12 +32,6 @@ public class CreateTextPostFragment extends JodelFragment {
     CreateTextPostContract.Presenter presenter;
     @DexAdd
     public static CreateTextPostFragment mInstance;
-
-    @DexAdd
-    public CreateTextPostFragment$Views getViews() {
-        return mViews;
-    }
-
     @DexAdd
     private CreateTextPostFragment$Views mViews;
 
@@ -74,6 +68,11 @@ public class CreateTextPostFragment extends JodelFragment {
             scrollContainer.getChildAt(i).setClickable(true);
             scrollContainer.getChildAt(i).setLongClickable(true);
         }
+    }
+
+    @DexAdd
+    public CreateTextPostFragment$Views getViews() {
+        return mViews;
     }
 
     @DexIgnore

@@ -7,6 +7,7 @@ import android.location.Location;
 import com.google.gson.Gson;
 import com.jodelapp.jodelandroidv3.JodelApp;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -129,5 +130,28 @@ public class JPStorage {
 
     public void setSpoofLocation(boolean val) {
         settings.edit().putBoolean(SPOOF_LOCATION, val).apply();
+    }
+
+    public void setNumFastSpoofLocations(int num) {
+        settings.edit().putInt("num_fast_spoof_locations", num).apply();
+    }
+
+    public int getNumFastSpoofLocations() {
+        return settings.getInt("num_fast_spoof_locations", 4);
+    }
+
+    public void deleteLocationAtIndex(int index) {
+        ArrayList<Address> mFastLocation = new ArrayList<>();
+        for (int i = 1; i <= getNumFastSpoofLocations(); i++) {
+            if (i != index) {
+                mFastLocation.add(getFastLocationSpoof(i));
+            }
+        }
+        fastLocationStorage.edit().clear().apply();
+        int newIndex = 1;
+        for (Address a : mFastLocation) {
+            setFastLocationSpoof(newIndex, a);
+            newIndex++;
+        }
     }
 }

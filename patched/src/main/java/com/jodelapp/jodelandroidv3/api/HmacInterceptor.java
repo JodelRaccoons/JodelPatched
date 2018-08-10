@@ -2,6 +2,7 @@ package com.jodelapp.jodelandroidv3.api;
 
 import android.content.Context;
 import android.text.TextUtils;
+
 import com.tellm.android.app.mod.BuildConfig;
 
 import java.net.URI;
@@ -28,6 +29,7 @@ import okhttp3.Request;
 @DexEdit(contentOnly = true)
 public class HmacInterceptor {
 
+
     @DexIgnore
     private static final String SEPARATOR = "%";
     @DexIgnore
@@ -38,7 +40,7 @@ public class HmacInterceptor {
     @DexReplace
     private String calculateHMac(Request request, String str) {
         try {
-            URI TH = request.url().TH();
+            URI TH = request.url().uri();
             StringBuilder append2 = new StringBuilder(request.method()).append(SEPARATOR).append(TH.getHost()).append(SEPARATOR).append(String.valueOf(this.port)).append(SEPARATOR).append(TH.getPath());
             append2.append(SEPARATOR);
             String header = request.header(HttpRequest.HEADER_AUTHORIZATION);
@@ -85,8 +87,6 @@ public class HmacInterceptor {
 
     @DexIgnore
     private static void appendBody(StringBuilder stringBuilder, Request request) {}
-
-
 
     @DexReplace
     private static String calculateSaltHash(Context context) {

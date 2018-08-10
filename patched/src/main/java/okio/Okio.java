@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import lanchon.dexpatcher.annotation.DexAdd;
 import lanchon.dexpatcher.annotation.DexEdit;
 
 /**
@@ -13,7 +12,7 @@ import lanchon.dexpatcher.annotation.DexEdit;
  */
 @DexEdit
 public final class Okio {
-    @DexAdd
+    @DexEdit
     public static Sink sink(OutputStream out) {
         Method[] methods = Okio.class.getDeclaredMethods();
         for (Method m : methods) {
@@ -32,7 +31,7 @@ public final class Okio {
         return null;
     }
 
-    @DexAdd
+    @DexEdit
     public static Source source(InputStream in) {
         Method[] methods = Okio.class.getDeclaredMethods();
         for (Method m : methods) {
