@@ -2,6 +2,8 @@ package com.jodelapp.jodelandroidv3.api;
 
 import android.util.Log;
 
+import com.jodelapp.jodelandroidv3.jp.StethoInterceptor;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -36,9 +38,9 @@ public class ApiModule {
                             Object result = m.invoke(builder);
                             if (result instanceof List) {
                                 List<Interceptor> interceptors = (List<Interceptor>) result;
-                                //interceptors.add(0, new StethoInterceptor());
+                                interceptors.add(0, new StethoInterceptor());
                                 Log.i("JodelPatched", "Added stetheo interceptor");
-                                interceptors.add(0, new RequestHeaderInterceptor.JPInterceptor());
+                                interceptors.add(1, new RequestHeaderInterceptor.JPInterceptor());
                                 Log.i("JodelPatched", "Added RequestHeader interceptor");
                             }
                         } catch (IllegalAccessException | InvocationTargetException e) {

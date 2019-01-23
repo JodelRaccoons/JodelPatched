@@ -14,7 +14,7 @@ import com.jodelapp.jodelandroidv3.jp.JPUtils;
  * Created by Admin on 07.04.2018.
  */
 
-class MainActivity$OnToggleLocationClickListener implements View.OnClickListener {
+public class MainActivity$OnToggleLocationClickListener implements View.OnClickListener {
 
     private Activity mainActivity;
     private ImageView ivCrossingLine;

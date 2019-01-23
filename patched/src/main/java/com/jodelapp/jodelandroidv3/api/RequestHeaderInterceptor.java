@@ -43,6 +43,7 @@ public class RequestHeaderInterceptor implements Interceptor {
             newBuilder.addHeader("X-JodelPatched-Version", BuildConfig.VERSION_NAME + "/" + BuildConfig.VERSION_CODE);
             newBuilder.addHeader("X-JodelPatched-BuildType", BuildConfig.BUILD_TYPE);
             newBuilder.addHeader("X-JodelPatched-GlutenFree", "definitely");
+            newBuilder.addHeader("X-Pect", "The spanish inquisition");
             return chain.proceed(newBuilder.build());
         }
     }
